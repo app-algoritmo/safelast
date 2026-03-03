@@ -6,44 +6,16 @@
     <title>SALA • Driver View</title>
     <script src="https://unpkg.com/html5-qrcode"></script>
     <style>
-        body { 
-            background: #0a0e14; color: #ffffff; font-family: sans-serif; 
-            margin: 0; display: flex; flex-direction: column; align-items: center; 
-            min-height: 100vh; padding: 20px; box-sizing: border-box;
-        }
+        body { background: #0a0e14; color: #ffffff; font-family: sans-serif; margin: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 20px; box-sizing: border-box; }
         .app-container { width: 100%; max-width: 400px; text-align: center; }
-        .risk-circle {
-            width: 160px; height: 160px; border-radius: 50%;
-            border: 12px solid #1a1f26; margin: 15px auto;
-            display: flex; align-items: center; justify-content: center;
-            flex-direction: column; transition: all 0.4s ease;
-        }
+        .risk-circle { width: 160px; height: 160px; border-radius: 50%; border: 12px solid #1a1f26; margin: 15px auto; display: flex; align-items: center; justify-content: center; flex-direction: column; transition: all 0.4s ease; box-shadow: 0 0 15px rgba(0,0,0,0.5); }
         #risk-value { font-size: 3rem; font-weight: 900; margin: 0; }
         .input-group { margin-top: 15px; text-align: left; }
         label { display: block; color: #888; font-size: 0.65rem; margin-bottom: 4px; font-weight: bold; letter-spacing: 1px; }
-        input { 
-            background: #1a1f26; border: 1px solid #333; color: white; 
-            padding: 10px; width: 100%; border-radius: 8px; 
-            font-size: 1rem; text-align: center; margin-bottom: 12px;
-            box-sizing: border-box;
-        }
-        .btn-update { 
-            background: #007bff; color: white; border: none; 
-            padding: 16px; width: 100%; border-radius: 12px; 
-            font-size: 1.1rem; font-weight: bold; cursor: pointer;
-            margin-top: 5px;
-        }
-        .btn-scan {
-            background: #28a745; color: white; border: none;
-            padding: 12px; width: 100%; border-radius: 12px;
-            font-size: 0.9rem; font-weight: bold; cursor: pointer;
-            margin-top: 25px; margin-bottom: 10px;
-        }
-        #reader { 
-            width: 100%; border-radius: 12px; margin-top: 10px; 
-            display: none; overflow: hidden; background: #000; 
-            border: 1px solid #333;
-        }
+        input { background: #1a1f26; border: 1px solid #333; color: white; padding: 10px; width: 100%; border-radius: 8px; font-size: 1rem; text-align: center; margin-bottom: 12px; box-sizing: border-box; }
+        .btn-update { background: #007bff; color: white; border: none; padding: 16px; width: 100%; border-radius: 12px; font-size: 1.1rem; font-weight: bold; cursor: pointer; margin-top: 5px; }
+        .btn-scan { background: #28a745; color: white; border: none; padding: 12px; width: 100%; border-radius: 12px; font-size: 0.9rem; font-weight: bold; cursor: pointer; margin-top: 25px; margin-bottom: 10px; }
+        #reader { width: 100%; border-radius: 12px; margin-top: 10px; display: none; overflow: hidden; background: #000; border: 1px solid #333; }
         .status-msg { margin-top: 15px; font-weight: bold; padding: 10px; border-radius: 8px; font-size: 0.85rem; }
     </style>
 </head>
@@ -69,8 +41,11 @@
             <label>CARGO WEIGHT (TONS)</label>
             <input type="number" id="weight" value="0">
 
-            <label>HEAVY PACKAGES (>25KG)</label>
-            <input type="number" id="packages" value="0">
+            <label>HEAVY PACKAGES (> 25KG)</label>
+            <input type="number" id="packages_heavy" value="0">
+
+            <label>LIGHT PACKAGES (< 25KG)</label>
+            <input type="number" id="packages_light" value="0">
             
             <button class="btn-update" onclick="updateDriverView()">CHECK SAFETY STATUS</button>
         </div>
@@ -87,54 +62,47 @@
         async function startScanner() {
             const readerDiv = document.getElementById('reader');
             const scanBtn = document.getElementById('scan-btn');
-            
             try {
-                // Passo 1: Forçar pedido de permissão do sistema
                 const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
-                stream.getTracks().forEach(track => track.stop()); // Libera a camera após teste
-
+                stream.getTracks().forEach(track => track.stop());
                 readerDiv.style.display = 'block';
-                scanBtn.innerText = "CAMERA ACTIVE - POINT TO BARCODE";
+                scanBtn.innerText = "CAMERA ACTIVE...";
 
-                if (!html5QrCode) {
-                    html5QrCode = new Html5Qrcode("reader");
-                }
+                if (!html5QrCode) html5QrCode = new Html5Qrcode("reader");
 
-                html5QrCode.start(
-                    { facingMode: "environment" }, 
-                    { fps: 10, qrbox: { width: 250, height: 150 } },
+                html5QrCode.start({ facingMode: "environment" }, { fps: 10, qrbox: { width: 250, height: 150 } },
                     (decodedText) => {
-                        // Ao bipar com sucesso
-                        let pkgInput = document.getElementById('packages');
-                        pkgInput.value = parseInt(pkgInput.value) + 1;
+                        // Simulação: se o código lido termina em número par, é pesado, se ímpar é leve
+                        // Na vida real, aqui consultaríamos o banco de dados do pacote
+                        let isHeavy = Math.random() > 0.5; 
+                        if(isHeavy) {
+                            let input = document.getElementById('packages_heavy');
+                            input.value = parseInt(input.value) + 1;
+                        } else {
+                            let input = document.getElementById('packages_light');
+                            input.value = parseInt(input.value) + 1;
+                        }
                         
                         html5QrCode.stop().then(() => {
                             readerDiv.style.display = 'none';
                             scanBtn.innerText = "[ ] SCAN PACKAGE BARCODE";
-                            updateDriverView(); // Recalcula o risco
+                            updateDriverView();
                         });
                     }
-                ).catch(err => {
-                    alert("Scanner Start Error: " + err);
-                });
-
-            } catch (err) {
-                alert("Camera Access Denied. Please enable camera permissions in your phone settings for this site.");
-                console.error(err);
-            }
+                ).catch(err => alert(err));
+            } catch (err) { alert("Camera Access Denied."); }
         }
 
         async function updateDriverView() {
             const h = document.getElementById('hours').value;
             const t = document.getElementById('temp').value;
             const w = document.getElementById('weight').value;
-            const p = document.getElementById('packages').value;
+            const ph = document.getElementById('packages_heavy').value;
+            const pl = document.getElementById('packages_light').value;
             
             const riskValueText = document.getElementById('risk-value');
             const circle = document.getElementById('circle');
             const status = document.getElementById('status');
-
-            riskValueText.innerText = "...";
 
             try {
                 const res = await fetch("https://sala-risk-engine-718760302477.europe-north1.run.app", {
@@ -144,38 +112,28 @@
                         "driving_hours": parseFloat(h), 
                         "temp": parseFloat(t),
                         "total_weight": parseFloat(w),
-                        "heavy_packages": parseInt(p)
+                        "heavy_packages": parseInt(ph),
+                        "light_packages": parseInt(pl)
                     })
                 });
-
                 const data = await res.json();
                 const risk = data.risk_index;
-                
                 riskValueText.innerText = risk + "%";
 
                 if(risk >= 80) {
                     circle.style.borderColor = "#ff4444";
-                    circle.style.boxShadow = "0 0 20px rgba(255, 68, 68, 0.4)";
-                    status.innerText = "HIGH RISK: USE MECHANICAL LIFTING AIDS";
-                    status.style.background = "rgba(255, 68, 68, 0.2)";
+                    status.innerText = "HIGH RISK: CRITICAL FATIGUE";
                     status.style.color = "#ff4444";
                 } else if(risk >= 50) {
                     circle.style.borderColor = "#ffa500";
-                    circle.style.boxShadow = "0 0 20px rgba(255, 165, 0, 0.4)";
-                    status.innerText = "CAUTION: ERGONOMIC AIDS RECOMMENDED";
-                    status.style.background = "rgba(255, 165, 0, 0.2)";
+                    status.innerText = "CAUTION: MODERATE FATIGUE";
                     status.style.color = "#ffa500";
                 } else {
                     circle.style.borderColor = "#28a745";
-                    circle.style.boxShadow = "0 0 20px rgba(40, 167, 69, 0.4)";
                     status.innerText = "SAFE TO OPERATE";
-                    status.style.background = "rgba(40, 167, 69, 0.2)";
                     status.style.color = "#28a745";
                 }
-            } catch (error) {
-                riskValueText.innerText = "ERR";
-                status.innerText = "CONNECTION ERROR";
-            }
+            } catch (e) { riskValueText.innerText = "ERR"; }
         }
         window.onload = updateDriverView;
     </script>
