@@ -39,7 +39,11 @@
             font-size: 0.9rem; font-weight: bold; cursor: pointer;
             margin-top: 25px; margin-bottom: 10px;
         }
-        #reader { width: 100%; border-radius: 12px; margin-top: 10px; display: none; overflow: hidden; background: #000; }
+        #reader { 
+            width: 100%; border-radius: 12px; margin-top: 10px; 
+            display: none; overflow: hidden; background: #000; 
+            border: 1px solid #333;
+        }
         .status-msg { margin-top: 15px; font-weight: bold; padding: 10px; border-radius: 8px; font-size: 0.85rem; }
     </style>
 </head>
@@ -84,28 +88,40 @@
             const readerDiv = document.getElementById('reader');
             const scanBtn = document.getElementById('scan-btn');
             
-            readerDiv.style.display = 'block';
-            scanBtn.innerText = "CAMERA ACTIVE - POINT TO BARCODE";
+            try {
+                // Passo 1: Forçar pedido de permissão do sistema
+                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
+                stream.getTracks().forEach(track => track.stop()); // Libera a camera após teste
 
-            html5QrCode = new Html5Qrcode("reader");
-            html5QrCode.start(
-                { facingMode: "environment" }, 
-                { fps: 10, qrbox: { width: 250, height: 150 } },
-                (decodedText) => {
-                    // SUCESSO AO LER
-                    let pkgInput = document.getElementById('packages');
-                    pkgInput.value = parseInt(pkgInput.value) + 1;
-                    
-                    html5QrCode.stop();
-                    readerDiv.style.display = 'none';
-                    scanBtn.innerText = "[ ] SCAN PACKAGE BARCODE";
-                    
-                    updateDriverView(); // Atualiza o risco automaticamente
+                readerDiv.style.display = 'block';
+                scanBtn.innerText = "CAMERA ACTIVE - POINT TO BARCODE";
+
+                if (!html5QrCode) {
+                    html5QrCode = new Html5Qrcode("reader");
                 }
-            ).catch(err => {
+
+                html5QrCode.start(
+                    { facingMode: "environment" }, 
+                    { fps: 10, qrbox: { width: 250, height: 150 } },
+                    (decodedText) => {
+                        // Ao bipar com sucesso
+                        let pkgInput = document.getElementById('packages');
+                        pkgInput.value = parseInt(pkgInput.value) + 1;
+                        
+                        html5QrCode.stop().then(() => {
+                            readerDiv.style.display = 'none';
+                            scanBtn.innerText = "[ ] SCAN PACKAGE BARCODE";
+                            updateDriverView(); // Recalcula o risco
+                        });
+                    }
+                ).catch(err => {
+                    alert("Scanner Start Error: " + err);
+                });
+
+            } catch (err) {
+                alert("Camera Access Denied. Please enable camera permissions in your phone settings for this site.");
                 console.error(err);
-                alert("Camera access denied or not found.");
-            });
+            }
         }
 
         async function updateDriverView() {
@@ -139,16 +155,19 @@
 
                 if(risk >= 80) {
                     circle.style.borderColor = "#ff4444";
+                    circle.style.boxShadow = "0 0 20px rgba(255, 68, 68, 0.4)";
                     status.innerText = "HIGH RISK: USE MECHANICAL LIFTING AIDS";
                     status.style.background = "rgba(255, 68, 68, 0.2)";
                     status.style.color = "#ff4444";
                 } else if(risk >= 50) {
                     circle.style.borderColor = "#ffa500";
-                    status.innerText = "CAUTION: ADAPT FOR SLIPPERY CONDITIONS";
+                    circle.style.boxShadow = "0 0 20px rgba(255, 165, 0, 0.4)";
+                    status.innerText = "CAUTION: ERGONOMIC AIDS RECOMMENDED";
                     status.style.background = "rgba(255, 165, 0, 0.2)";
                     status.style.color = "#ffa500";
                 } else {
                     circle.style.borderColor = "#28a745";
+                    circle.style.boxShadow = "0 0 20px rgba(40, 167, 69, 0.4)";
                     status.innerText = "SAFE TO OPERATE";
                     status.style.background = "rgba(40, 167, 69, 0.2)";
                     status.style.color = "#28a745";
