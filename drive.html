@@ -15,6 +15,7 @@
         input { background: #1a1f26; border: 1px solid #333; color: white; padding: 10px; width: 100%; border-radius: 8px; font-size: 1rem; text-align: center; margin-bottom: 12px; box-sizing: border-box; }
         .btn-update { background: #007bff; color: white; border: none; padding: 16px; width: 100%; border-radius: 12px; font-size: 1.1rem; font-weight: bold; cursor: pointer; margin-top: 5px; }
         .btn-scan { background: #28a745; color: white; border: none; padding: 12px; width: 100%; border-radius: 12px; font-size: 0.9rem; font-weight: bold; cursor: pointer; margin-top: 25px; margin-bottom: 10px; }
+        .btn-reset { background: #dc3545; color: white; border: none; padding: 10px; width: 100%; border-radius: 8px; font-size: 0.8rem; font-weight: bold; cursor: pointer; margin-top: 5px; opacity: 0.8; }
         #reader { width: 100%; border-radius: 12px; margin-top: 10px; display: none; overflow: hidden; background: #000; border: 1px solid #333; }
         .status-msg { margin-top: 15px; font-weight: bold; padding: 10px; border-radius: 8px; font-size: 0.85rem; }
     </style>
@@ -52,12 +53,20 @@
 
         <div id="reader"></div>
         <button class="btn-scan" id="scan-btn" onclick="startScanner()">[ ] SCAN PACKAGE BARCODE</button>
+        <button class="btn-reset" onclick="resetCounters()">RESTART DATA</button>
         
         <a href="index.html" style="color: #444; text-decoration: none; display: block; margin-top: 20px; font-size: 0.75rem;">← Exit to Portal</a>
     </div>
 
     <script>
         let html5QrCode;
+
+        function resetCounters() {
+            document.getElementById('packages_heavy').value = 0;
+            document.getElementById('packages_light').value = 0;
+            document.getElementById('weight').value = 0;
+            updateDriverView();
+        }
 
         async function startScanner() {
             const readerDiv = document.getElementById('reader');
@@ -72,15 +81,14 @@
 
                 html5QrCode.start({ facingMode: "environment" }, { fps: 10, qrbox: { width: 250, height: 150 } },
                     (decodedText) => {
-                        // Simulação: se o código lido termina em número par, é pesado, se ímpar é leve
-                        // Na vida real, aqui consultaríamos o banco de dados do pacote
-                        let isHeavy = Math.random() > 0.5; 
-                        if(isHeavy) {
-                            let input = document.getElementById('packages_heavy');
-                            input.value = parseInt(input.value) + 1;
+                        // LOGICA DE DISTRIBUIÇÃO:
+                        // Para o teste, vamos alternar: se o tamanho do texto do código for par, Heavy. Se ímpar, Light.
+                        if(decodedText.length % 2 === 0) {
+                            let inputH = document.getElementById('packages_heavy');
+                            inputH.value = parseInt(inputH.value) + 1;
                         } else {
-                            let input = document.getElementById('packages_light');
-                            input.value = parseInt(input.value) + 1;
+                            let inputL = document.getElementById('packages_light');
+                            inputL.value = parseInt(inputL.value) + 1;
                         }
                         
                         html5QrCode.stop().then(() => {
