@@ -1,115 +1,183 @@
-<script>
-    let html5QrCode;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SALA • Driver View</title>
+    <script src="https://unpkg.com/html5-qrcode"></script>
+    <style>
+        body { background: #0a0e14; color: #ffffff; font-family: sans-serif; margin: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 20px; box-sizing: border-box; }
+        .app-container { width: 100%; max-width: 400px; text-align: center; }
+        .risk-circle { width: 160px; height: 160px; border-radius: 50%; border: 12px solid #1a1f26; margin: 15px auto; display: flex; align-items: center; justify-content: center; flex-direction: column; transition: all 0.4s ease; box-shadow: 0 0 15px rgba(0,0,0,0.5); }
+        #risk-value { font-size: 3rem; font-weight: 900; margin: 0; }
+        .input-group { margin-top: 15px; text-align: left; }
+        label { display: block; color: #888; font-size: 0.65rem; margin-bottom: 4px; font-weight: bold; letter-spacing: 1px; }
+        input { background: #1a1f26; border: 1px solid #333; color: white; padding: 12px; width: 100%; border-radius: 8px; font-size: 1.1rem; text-align: center; margin-bottom: 15px; box-sizing: border-box; outline: none; }
+        .btn-update { background: #007bff; color: white; border: none; padding: 18px; width: 100%; border-radius: 12px; font-size: 1.1rem; font-weight: bold; cursor: pointer; margin-top: 5px; }
+        .btn-scan { background: #28a745; color: white; border: none; padding: 15px; width: 100%; border-radius: 12px; font-size: 1rem; font-weight: bold; cursor: pointer; margin-top: 20px; }
+        .btn-reset { background: #dc3545; color: white; border: none; padding: 10px; width: 100%; border-radius: 8px; font-size: 0.8rem; font-weight: bold; cursor: pointer; margin-top: 15px; opacity: 0.7; }
+        #reader { width: 100%; border-radius: 12px; margin-top: 15px; display: none; overflow: hidden; background: #000; border: 2px solid #28a745; }
+        .status-msg { margin-top: 10px; font-weight: bold; padding: 10px; border-radius: 8px; font-size: 0.8rem; letter-spacing: 1px; }
+    </style>
+</head>
+<body>
 
-    // Tenta GPS, se falhar usa IP, se falhar usa valor padrão.
-    async function detectLocationAndWeather() {
-        const status = document.getElementById('status');
-        const tempInput = document.getElementById('temp');
+    <div class="app-container">
+        <p style="color: #007bff; font-weight: bold; font-size: 0.8rem; letter-spacing: 2px; margin-bottom: 5px;">SALA • UNIVERSAL DRIVER MODE</p>
+        
+        <div class="risk-circle" id="circle">
+            <p id="risk-value">--%</p>
+            <span style="font-size: 0.6rem; color: #888;">RISK INDEX</span>
+        </div>
 
-        status.innerText = "SYNCING WEATHER...";
+        <div id="status" class="status-msg">INITIALIZING SYSTEM...</div>
 
-        try {
-            // Tentativa 1: Localização por IP (Mais rápido e não pede permissão)
-            const ipRes = await fetch("https://ipapi.co/json/");
-            const ipData = await ipRes.json();
-            const city = ipData.city || "Larvik"; // Se falhar, assume Larvik como base
-
-            // Busca temperatura para essa cidade
-            const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${ipData.latitude}&longitude=${ipData.longitude}&current_weather=true`);
-            const weatherData = await weatherRes.json();
+        <div class="input-group">
+            <label>DRIVING HOURS</label>
+            <input type="number" id="hours" value="2.0" step="0.1">
             
-            if (weatherData.current_weather) {
+            <label id="label-temp">OUTSIDE TEMP (°C)</label>
+            <input type="number" id="temp" value="0">
+
+            <label>CARGO WEIGHT (TONS)</label>
+            <input type="number" id="weight" value="0">
+
+            <label>HEAVY PACKAGES (> 25KG)</label>
+            <input type="number" id="packages_heavy" value="0">
+
+            <label>LIGHT PACKAGES (< 25KG)</label>
+            <input type="number" id="packages_light" value="0">
+            
+            <button class="btn-update" onclick="updateDriverView()">MANUAL UPDATE</button>
+        </div>
+
+        <div id="reader"></div>
+        <button class="btn-scan" id="scan-btn" onclick="startScanner()">[ ] SCAN PACKAGE (AUTO-UPDATE)</button>
+        <button class="btn-reset" onclick="resetCounters()">RESTART DATA</button>
+        
+        <a href="index.html" style="color: #444; text-decoration: none; display: block; margin-top: 25px; font-size: 0.75rem;">← Exit to Portal</a>
+    </div>
+
+    <script>
+        let html5QrCode;
+
+        // 1. Lógica de Detecção Rápida de Clima e Localização
+        async function detectWeather() {
+            const status = document.getElementById('status');
+            const tempInput = document.getElementById('temp');
+
+            // Primeiro tenta pelo IP (Mais rápido para apresentação)
+            try {
+                const ipRes = await fetch("https://ipapi.co/json/");
+                const ipData = await ipRes.json();
+                const lat = ipData.latitude;
+                const lon = ipData.longitude;
+                
+                const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`);
+                const weatherData = await weatherRes.json();
+                
                 tempInput.value = Math.round(weatherData.current_weather.temperature);
-                status.innerText = `SYNCED: ${city.toUpperCase()}`;
+                status.innerText = `SYNCED: ${ipData.city.toUpperCase()}`;
                 updateDriverView();
-            }
-        } catch (e) {
-            console.log("Erro na detecção automática, tentando GPS...");
-            // Tentativa 2: GPS do Aparelho
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(async (pos) => {
-                    const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${pos.coords.latitude}&longitude=${pos.coords.longitude}&current_weather=true`);
-                    const data = await res.json();
-                    tempInput.value = Math.round(data.current_weather.temperature);
-                    status.innerText = "GPS SYNCED";
-                    updateDriverView();
-                }, () => {
-                    status.innerText = "MANUAL MODE ACTIVE";
-                });
-            }
-        }
-    }
-
-    function resetCounters() {
-        document.getElementById('packages_heavy').value = 0;
-        document.getElementById('packages_light').value = 0;
-        document.getElementById('weight').value = 0;
-        updateDriverView();
-    }
-
-    async function startScanner() {
-        const readerDiv = document.getElementById('reader');
-        const scanBtn = document.getElementById('scan-btn');
-        try {
-            const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
-            stream.getTracks().forEach(track => track.stop());
-            readerDiv.style.display = 'block';
-            scanBtn.innerText = "CAMERA ACTIVE...";
-
-            if (!html5QrCode) html5QrCode = new Html5Qrcode("reader");
-
-            html5QrCode.start({ facingMode: "environment" }, { fps: 10, qrbox: { width: 250, height: 150 } },
-                (decodedText) => {
-                    let inputL = document.getElementById('packages_light');
-                    inputL.value = (parseInt(inputL.value) || 0) + 1;
-                    
-                    html5QrCode.stop().then(() => {
-                        readerDiv.style.display = 'none';
-                        scanBtn.innerText = "[ ] SCAN PACKAGE (AUTO-UPDATE)";
+            } catch (error) {
+                // Se o IP falhar, tenta o GPS do navegador
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(async (position) => {
+                        const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}&current_weather=true`);
+                        const weatherData = await weatherRes.json();
+                        tempInput.value = Math.round(weatherData.current_weather.temperature);
+                        status.innerText = "GPS SYNCED";
                         updateDriverView();
+                    }, () => {
+                        status.innerText = "LOCALIZATION FAILED - MANUAL MODE";
                     });
                 }
-            ).catch(err => alert(err));
-        } catch (err) { alert("Camera Access Denied."); }
-    }
-
-    async function updateDriverView() {
-        const h = document.getElementById('hours').value;
-        const t = document.getElementById('temp').value;
-        const w = document.getElementById('weight').value;
-        const ph = document.getElementById('packages_heavy').value;
-        const pl = document.getElementById('packages_light').value;
-        
-        const riskValueText = document.getElementById('risk-value');
-        const circle = document.getElementById('circle');
-        const statusMsg = document.getElementById('status');
-
-        try {
-            const res = await fetch("https://sala-risk-engine-718760302477.europe-north1.run.app", {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
-                    "driving_hours": parseFloat(h), "temp": parseFloat(t),
-                    "total_weight": parseFloat(w), "heavy_packages": parseInt(ph),
-                    "light_packages": parseInt(pl)
-                })
-            });
-            const data = await res.json();
-            const risk = data.risk_index;
-            riskValueText.innerText = risk + "%";
-
-            if(risk >= 80) {
-                circle.style.borderColor = "#ff4444";
-                statusMsg.style.color = "#ff4444";
-            } else if(risk >= 50) {
-                circle.style.borderColor = "#ffa500";
-                statusMsg.style.color = "#ffa500";
-            } else {
-                circle.style.borderColor = "#28a745";
-                statusMsg.style.color = "#28a745";
             }
-        } catch (e) { riskValueText.innerText = "ERR"; }
-    }
+        }
 
-    window.onload = detectLocationAndWeather;
-</script>
+        function resetCounters() {
+            document.getElementById('packages_heavy').value = 0;
+            document.getElementById('packages_light').value = 0;
+            document.getElementById('weight').value = 0;
+            updateDriverView();
+        }
+
+        async function startScanner() {
+            const readerDiv = document.getElementById('reader');
+            const scanBtn = document.getElementById('scan-btn');
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
+                stream.getTracks().forEach(track => track.stop());
+                readerDiv.style.display = 'block';
+                scanBtn.innerText = "CAMERA ACTIVE...";
+
+                if (!html5QrCode) html5QrCode = new Html5Qrcode("reader");
+
+                html5QrCode.start({ facingMode: "environment" }, { fps: 10, qrbox: { width: 250, height: 150 } },
+                    (decodedText) => {
+                        // REGRA: Scanner adiciona ao campo <25kg
+                        let inputL = document.getElementById('packages_light');
+                        inputL.value = (parseInt(inputL.value) || 0) + 1;
+                        
+                        html5QrCode.stop().then(() => {
+                            readerDiv.style.display = 'none';
+                            scanBtn.innerText = "[ ] SCAN PACKAGE (AUTO-UPDATE)";
+                            updateDriverView();
+                        });
+                    }
+                ).catch(err => alert("Camera error: " + err));
+            } catch (err) { alert("Camera Access Denied."); }
+        }
+
+        async function updateDriverView() {
+            const h = document.getElementById('hours').value;
+            const t = document.getElementById('temp').value;
+            const w = document.getElementById('weight').value;
+            const ph = document.getElementById('packages_heavy').value;
+            const pl = document.getElementById('packages_light').value;
+            
+            const riskValueText = document.getElementById('risk-value');
+            const circle = document.getElementById('circle');
+            const statusMsg = document.getElementById('status');
+
+            try {
+                const res = await fetch("https://sala-risk-engine-718760302477.europe-north1.run.app", {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        "driving_hours": parseFloat(h), 
+                        "temp": parseFloat(t),
+                        "total_weight": parseFloat(w),
+                        "heavy_packages": parseInt(ph),
+                        "light_packages": parseInt(pl)
+                    })
+                });
+                const data = await res.json();
+                const risk = data.risk_index;
+                riskValueText.innerText = risk + "%";
+
+                // Feedback Visual
+                if(risk >= 80) {
+                    circle.style.borderColor = "#ff4444";
+                    statusMsg.innerText = "HIGH RISK: TAKE A BREAK";
+                    statusMsg.style.color = "#ff4444";
+                } else if(risk >= 50) {
+                    circle.style.borderColor = "#ffa500";
+                    statusMsg.innerText = "CAUTION: MODERATE FATIGUE";
+                    statusMsg.style.color = "#ffa500";
+                } else {
+                    circle.style.borderColor = "#28a745";
+                    statusMsg.innerText = "SAFE TO OPERATE";
+                    statusMsg.style.color = "#28a745";
+                }
+            } catch (e) { 
+                riskValueText.innerText = "ERR"; 
+                console.error("API Error:", e);
+            }
+        }
+
+        // Inicia detectando o clima assim que a página abre
+        window.onload = detectWeather;
+    </script>
+</body>
+</html>
