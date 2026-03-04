@@ -2,22 +2,135 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>SALA • Legal & HSE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SALA • HSE & Legal Compliance Documentation</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 40px auto; padding: 20px; }
-        h1 { color: #002b5c; border-bottom: 2px solid #002b5c; }
-        .footer-link { margin-top: 50px; border-top: 1px solid #eee; padding-top: 10px; font-size: 0.85rem; }
-        .footer-link a { color: #888; text-decoration: none; }
-        .footer-link a:hover { color: #002b5c; text-decoration: underline; }
+        :root {
+            --legal-blue: #0a2342;
+            --paper-white: #ffffff;
+            --stamp-red: #ae2012;
+            --border-gray: #d1d5db;
+        }
+        body { 
+            font-family: 'Times New Roman', serif; 
+            line-height: 1.5; 
+            color: #111; 
+            background-color: #f3f4f6;
+            max-width: 850px; 
+            margin: 0 auto; 
+            padding: 50px 20px;
+        }
+        .legal-document { 
+            background: var(--paper-white); 
+            padding: 60px; 
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border: 1px solid var(--border-gray);
+            position: relative;
+        }
+        .confidential-stamp {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            border: 3px solid var(--stamp-red);
+            color: var(--stamp-red);
+            padding: 5px 10px;
+            font-weight: bold;
+            transform: rotate(5deg);
+            text-transform: uppercase;
+            font-family: sans-serif;
+            font-size: 0.8rem;
+        }
+        h1 { font-size: 1.8rem; border-bottom: 2px solid var(--legal-blue); padding-bottom: 10px; margin-top: 0; }
+        h2 { font-size: 1.2rem; color: var(--legal-blue); margin-top: 30px; text-decoration: underline; }
+        h3 { font-size: 1rem; margin-top: 20px; }
+        
+        .law-quote { 
+            background: #f9fafb; 
+            border-left: 4px solid var(--legal-blue); 
+            padding: 15px; 
+            font-style: italic; 
+            margin: 20px 0;
+            font-size: 0.95rem;
+        }
+        .section-number { font-weight: bold; color: var(--legal-blue); }
+        
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.9rem; }
+        th, td { border: 1px solid var(--border-gray); padding: 10px; text-align: left; }
+        th { background: #f3f4f6; }
+
+        .footer-nav { margin-top: 60px; padding-top: 20px; border-top: 1px solid #eee; display: flex; justify-content: space-between; font-family: sans-serif; font-size: 0.8rem; }
+        .footer-nav a { color: #666; text-decoration: none; }
     </style>
 </head>
 <body>
-    <h1>⚖️ HSE & Legal Compliance Documentation</h1>
-    <p>Information for Arbeidstilsynet and internal Safety Delegates (Verneombud).</p>
 
-    <div class="footer-link">
-        <a href="javascript:window.close();">× Close Manual</a> | 
-        <a href="company.html">← Back to Management Portal</a>
+<div class="legal-document">
+    <div class="confidential-stamp">Internal Compliance Data</div>
+    
+    <header>
+        <p style="font-family: sans-serif; font-size: 0.7rem; color: #666; margin: 0;">DOCUMENT ID: SALA-HSE-NOR-2026</p>
+        <h1>Health, Safety & Environment (HSE) Framework</h1>
+        <p>Regulatory Alignment with Norwegian Labor Standards and International Ergonomic Guidelines.</p>
+    </header>
+
+    <h2>1. Alignment with Norwegian Labor Law (Arbeidsmiljøloven)</h2>
+    <p>The SALA system is designed to assist employers in fulfilling their statutory duties under the <strong>Working Environment Act (Arbeidsmiljøloven)</strong>, specifically focusing on physical health and injury prevention.</p>
+
+    <div class="law-quote">
+        "Arbeidsmiljøloven § 4-4 (2): The workplace shall be arranged so that employees are not exposed to adverse physical strain. Necessary aids shall be provided..."
     </div>
+    
+    <p>By providing real-time biomechanical telemetry, SALA serves as a <strong>proactive monitoring tool</strong> to identify and mitigate ergonomic risks before they result in workplace accidents or long-term sick leave (sykemelding).</p>
+
+    <h2>2. Technical Data Privacy (GDPR Compliance)</h2>
+    <p>The SALA system adheres to strict data minimization principles:</p>
+    <ul>
+        <li><strong>Purpose Limitation:</strong> Biomechanical data is collected exclusively for health monitoring and risk prevention.</li>
+        <li><strong>Anonymization:</strong> Long-term analytical reports for management are aggregated to protect individual privacy, unless an acute medical intervention is triggered.</li>
+        <li><strong>Ownership:</strong> Biomechanical data remains the property of the employee/employer relationship and is not shared with third-party marketing entities.</li>
+    </ul>
+
+    <h2>3. Ergonomic Risk Classification (Sf & Ri Metrics)</h2>
+    <p>The SALA Risk Engine utilizes the following scientific standards to determine safety thresholds:</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Metric</th>
+                <th>Scientific Standard</th>
+                <th>Threshold Limit</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Sf (Safety Factor)</strong></td>
+                <td>ISO 11228-1 (Manual Handling)</td>
+                <td>Maximum 1.8 Peak Torque</td>
+            </tr>
+            <tr>
+                <td><strong>Ri (Risk Index)</strong></td>
+                <td>NIOSH Lifting Equation (Revised)</td>
+                <td>85% Cumulative Saturation</td>
+            </tr>
+            <tr>
+                <td><strong>Thermal Bias</strong></td>
+                <td>ISO 15743 (Ergonomics of the thermal environment)</td>
+                <td>Activated below +4°C</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>4. The Role of the Safety Delegate (Verneombud)</h2>
+    <p>SALA provides a transparent audit trail for the <em>Verneombud</em>. In the event of an HSE investigation, the "Risk Logs" provide objective evidence that the company has implemented active measures to monitor and reduce physical risks in accordance with <strong>§ 3-1</strong> (Duty to implement systematic HSE work).</p>
+
+    <h2>5. Disclaimer & Liability</h2>
+    <p>While SALA significantly reduces the probability of injury through real-time feedback, it does not replace mandatory safety training or the use of required personal protective equipment (PPE). It is a supportive analytics tool designed to enhance human judgment, not replace it.</p>
+
+    <div class="footer-nav">
+        <a href="company.html">← Back to Management Portal</a>
+        <span>© 2026 SALA Solutions - All Rights Reserved</span>
+        <a href="javascript:window.close();">Close Document ×</a>
+    </div>
+</div>
+
 </body>
 </html>
