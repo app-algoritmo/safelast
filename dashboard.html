@@ -21,8 +21,27 @@
             background-color: var(--bg-color);
             color: var(--text-primary);
             margin: 0;
-            padding: 10px; /* Margem reduzida para mobile */
+            padding: 10px;
         }
+
+        /* Botão de Saída no Topo */
+        .nav-header {
+            max-width: 900px;
+            margin: 0 auto 10px auto;
+            display: flex;
+            justify-content: flex-start;
+        }
+        .btn-exit {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            font-weight: bold;
+            padding: 8px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            transition: all 0.2s;
+        }
+        .btn-exit:hover { background: var(--card-bg); color: var(--accent-blue); }
 
         .dashboard-container {
             max-width: 900px;
@@ -36,7 +55,7 @@
 
         header {
             display: flex;
-            flex-direction: column; /* Empilha no mobile */
+            flex-direction: column;
             text-align: center;
             border-bottom: 1px solid var(--border-color);
             padding-bottom: 20px;
@@ -51,29 +70,29 @@
 
         .input-section {
             display: flex;
-            flex-wrap: wrap; /* Faz os itens quebrarem linha no mobile */
-            gap: 15px;
+            flex-wrap: wrap;
+            gap: 12px;
             justify-content: center;
             margin-bottom: 30px;
             background: var(--card-bg);
-            padding: 20px;
+            padding: 15px;
             border-radius: 10px;
         }
 
         .input-group { 
-            flex: 1 1 140px; /* Ajusta largura conforme tela */
+            flex: 1 1 120px; 
             text-align: left; 
         }
 
-        .input-group label { display: block; font-size: 0.65rem; font-weight: bold; color: var(--text-secondary); margin-bottom: 5px; text-transform: uppercase; }
+        .input-group label { display: block; font-size: 0.6rem; font-weight: bold; color: var(--text-secondary); margin-bottom: 5px; text-transform: uppercase; }
         
         input { 
-            padding: 12px; 
+            padding: 10px; 
             border: 1px solid var(--border-color); 
             border-radius: 8px; 
             width: 100%; 
             box-sizing: border-box;
-            font-size: 1rem;
+            font-size: 0.9rem;
         }
 
         .btn-run { 
@@ -86,84 +105,87 @@
             cursor: pointer;
             width: 100%;
             margin-top: 10px;
-            transition: opacity 0.2s;
         }
 
         @media (min-width: 600px) { .btn-run { width: auto; align-self: flex-end; } }
 
-        .main-risk-indicator { text-align: center; margin: 30px 0; }
-        .risk-value { font-size: 4.5rem; font-weight: 900; margin: 0; transition: color 0.5s; }
+        .main-risk-indicator { text-align: center; margin: 20px 0; }
+        .risk-value { font-size: 4rem; font-weight: 900; margin: 0; transition: color 0.5s; }
         
         .alert-box {
             background-color: var(--card-bg);
             border-left: 5px solid var(--accent-blue);
             padding: 20px;
             border-radius: 8px;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             text-align: left;
         }
 
-        .alert-recommendation { font-size: 1.1rem; font-weight: 700; margin-top: 5px; }
+        .alert-recommendation { font-size: 1rem; font-weight: 700; margin-top: 5px; }
 
         footer { 
             text-align: center; 
-            font-size: 0.75rem; 
+            font-size: 0.7rem; 
             color: #888; 
             margin-top: 30px; 
             border-top: 1px solid var(--border-color); 
             padding-top: 20px;
-            line-height: 1.5;
+            line-height: 1.4;
         }
     </style>
 </head>
 <body>
 
+    <div class="nav-header">
+        <a href="index.html" class="btn-exit">← EXIT TO PORTAL</a>
+    </div>
+
     <div class="dashboard-container">
         <header>
             <div>
                 <h1>SALA • ANALYTICS DASHBOARD</h1>
-                <p style="color: var(--text-secondary); font-size: 0.9rem; margin:0;">Operational Risk Intelligence</p>
+                <p style="color: var(--text-secondary); font-size: 0.8rem; margin:0;">Operational Risk Intelligence</p>
             </div>
-            <div style="font-weight: bold; color: var(--text-secondary); font-size: 0.8rem; margin-top: 10px;">LARVIK • NORWAY</div>
+            <div style="font-weight: bold; color: var(--text-secondary); font-size: 0.7rem; margin-top: 10px;">LARVIK • NORWAY</div>
         </header>
 
         <section class="input-section">
             <div class="input-group">
-                <label>Driving Hours</label>
+                <label>Hours</label>
                 <input type="number" id="hours" value="4.0" step="0.1">
             </div>
             <div class="input-group">
-                <label>Temp (°C)</label>
+                <label>Temp °C</label>
                 <input type="number" id="temp" value="2">
             </div>
             <div class="input-group">
-                <label>Cargo (Tons)</label>
+                <label>Cargo (T)</label>
                 <input type="number" id="weight" value="0.5" step="0.1">
             </div>
             <div class="input-group">
-                <label>Heavy Pkgs</label>
+                <label>Heavy</label>
                 <input type="number" id="heavy" value="0">
             </div>
             <div class="input-group">
-                <label>Light Pkgs</label>
+                <label>Light</label>
                 <input type="number" id="light" value="0">
             </div>
             <button class="btn-run" onclick="calculateSALA()">RUN ANALYSIS</button>
         </section>
 
         <section class="main-risk-indicator">
-            <p style="color: var(--text-secondary); font-size: 0.8rem; font-weight: bold; text-transform: uppercase;">Real-Time Risk Index</p>
+            <p style="color: var(--text-secondary); font-size: 0.7rem; font-weight: bold; text-transform: uppercase;">Calculated Risk Index</p>
             <p class="risk-value" id="risk-display">--%</p>
         </section>
 
         <section class="alert-box" id="alert-box">
-            <p id="alert-title" style="color: var(--text-secondary); font-size: 0.7rem; font-weight: bold; margin: 0; text-transform: uppercase;">Ergonomic Safety Recommendation</p>
-            <p class="alert-recommendation" id="rec-text">Initialize system for live analysis...</p>
+            <p style="color: var(--text-secondary); font-size: 0.6rem; font-weight: bold; margin: 0; text-transform: uppercase;">Safety Status</p>
+            <p class="alert-recommendation" id="rec-text">Waiting for data...</p>
         </section>
 
         <footer>
-            <p><b>SALA PROJECT</b> | Biomechanical Adaptation & Safety Metrics<br>
-            Paulo Fernando De Barros | Safe-Load Analytics 2026</p>
+            <p><b>SALA PROJECT</b> | Biomechanical Adaptation<br>
+            Paulo Fernando De Barros | Larvik 2026</p>
         </footer>
     </div>
 
@@ -202,20 +224,19 @@
                 if (risk >= 80) {
                     riskDisplay.style.color = "var(--accent-red)";
                     alertBox.style.borderLeftColor = "var(--accent-red)";
-                    recText.innerText = "CRITICAL: MANDATORY MECHANICAL LIFTING";
+                    recText.innerText = "CRITICAL: MECHANICAL LIFTING ONLY";
                 } else if (risk >= 50) {
                     riskDisplay.style.color = "#ffa500";
                     alertBox.style.borderLeftColor = "#ffa500";
-                    recText.innerText = "CAUTION: ERGONOMIC AIDS RECOMMENDED";
+                    recText.innerText = "CAUTION: ERGONOMIC AIDS REQUIRED";
                 } else {
                     riskDisplay.style.color = "var(--accent-green)";
                     alertBox.style.borderLeftColor = "var(--accent-green)";
-                    recText.innerText = "SAFE: STANDARD PROTOCOLS ACTIVE";
+                    recText.innerText = "SAFE: STANDARD PROTOCOL";
                 }
-
             } catch (error) {
                 riskDisplay.innerText = "ERR";
-                recText.innerText = "System connection failure. Check Cloud Function.";
+                recText.innerText = "Cloud Connection Error.";
             }
         }
         window.onload = calculateSALA;
