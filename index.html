@@ -12,7 +12,7 @@
             --text-primary: #1a1a1a;
             --border-color: #d1e3f8;
             --btn-black: #1a1a1a;
-            /* Cor verde-azulada neon para o scanner */
+            /* Cor ciano vibrante para o efeito neon */
             --scanner-laser: #00f2ff; 
         }
 
@@ -52,13 +52,22 @@
         }
         .scanner-container img { max-width: 100%; max-height: 100%; object-fit: contain; }
         
-        /* LINHA DO SCANNER ATUALIZADA: FINA (1px) E BRILHANTE */
+        /* EFEITO REPETIDO: Linha ultra fina com halo de luz neon (inspirado na imagem) */
         .scanner-line {
-            position: absolute; top: 0; left: 0; width: 100%; height: 1px;
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 1px;
             background: var(--scanner-laser); 
-            /* Brilho refinado para linha fina */
-            box-shadow: 0 0 4px 1px rgba(0, 242, 255, 0.7), 0 0 8px 2px rgba(0, 242, 255, 0.3);
-            animation: scan 3s infinite linear; z-index: 10;
+            /* Sombra multicamadas para criar o brilho difuso */
+            box-shadow: 
+                0 0 5px var(--scanner-laser), 
+                0 0 10px var(--scanner-laser), 
+                0 0 20px rgba(0, 242, 255, 0.6), 
+                0 0 30px rgba(0, 242, 255, 0.4);
+            animation: scan 3s infinite linear; 
+            z-index: 10;
         }
         @keyframes scan { 0% { top: 0%; } 50% { top: 100%; } 100% { top: 0%; } }
 
@@ -170,7 +179,7 @@
                 scienceH: "Vitenskapen bak SALA",
                 sfP: "<strong>Biomekanisk overflatefaktor (Sf):</strong> Arbeid på komprimert snø eller is krever opptil 80% mer aktivering av stabiliseringsmuskulatur. Vi bruker en <strong>1,8x multiplikator</strong> for å ta høyde for økt belastning på korsryggen (L5/S1).",
                 fiP: "<strong>Nevromuskulær tretthet (Fi):</strong> Risiko øker eksponentielt etter <strong>6t 30m</strong> aktiv tjeneste. Vibrasjonsindusert tretthet fører til forsinket motorisk respons.",
-                regP: "<strong>Samsvar med regelverk (Arbeidsmiljøloven § 4-4):</strong> SALA er utviklet for å oppfylle kravene i arbeidsmiljøloven, og gir datadrevet dokumentasjon for <em>verneombudet</em> ved behov for mekanisk assistanse."
+                regP: "<strong>Samsvar med regelverk (Arbeidsmiljøloven § 4-4):</strong> SALA é utviklet for å oppfylle kravene i arbeidsmiljøloven, og gir datadrevet dokumentasjon for <em>verneombudet</em> ved behov for mekanisk assistanse."
             }
         };
 
@@ -195,12 +204,11 @@
             driverBtn.setAttribute('href', translations[lang].driverUrl);
         }
 
-        // Lógica de Detecção Automática de Idioma
         window.onload = () => {
             const userLang = (navigator.languages && navigator.languages[0]) || navigator.language || navigator.userLanguage; 
             
             if (userLang.startsWith('nb') || userLang.startsWith('nn') || userLang.startsWith('no')) {
-                translateTo('no'); // Ativa o modo Norueguês automaticamente
+                translateTo('no');
             }
         };
     </script>
