@@ -12,6 +12,7 @@
             --text-primary: #1a1a1a;
             --text-secondary: #4a4a4a;
             --border-color: #d1e3f8;
+            --btn-black: #1a1a1a;
         }
 
         body {
@@ -64,6 +65,11 @@
             transition: opacity 0.2s;
         }
 
+        /* Botão Drive em Negro */
+        .nav-button.driver {
+            background-color: var(--btn-black);
+        }
+
         .nav-button:hover { opacity: 0.9; }
         .nav-button.secondary { background-color: #f0f0f0; color: #333 !important; border: 1px solid #ddd; }
 
@@ -108,7 +114,7 @@
         </header>
 
         <nav class="nav-portal">
-            <a href="drive.html" class="nav-button" id="btn-driver">DRIVER APP</a>
+            <a href="drive.html" class="nav-button driver" id="btn-driver">DRIVER APP</a>
             <a href="company.html" class="nav-button" id="btn-dashboard">LIVE DASHBOARD</a>
             <a href="https://paulofbarros.github.io/safelast-site/company.html" class="nav-button secondary" id="btn-company">COMPANY ACCESS</a>
         </nav>
