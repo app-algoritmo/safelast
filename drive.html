@@ -19,7 +19,7 @@
         #reader { width: 100%; border-radius: 12px; margin-top: 15px; display: none; overflow: hidden; background: #000; border: 2px solid #28a745; }
         .status-msg { margin-top: 10px; font-weight: bold; padding: 10px; border-radius: 8px; font-size: 0.8rem; letter-spacing: 1px; }
         
-        /* Scientific Executive Summary - English Version */
+        /* Scientific Executive Summary */
         .scientific-footer {
             margin-top: 30px;
             padding: 20px;
@@ -43,6 +43,12 @@
             margin-bottom: 10px;
         }
         .keyword { color: #ffffff; font-weight: bold; }
+
+        /* Navigation Links */
+        .nav-links { margin-top: 30px; border-top: 1px solid #1a1f26; padding-top: 20px; }
+        .manual-link { color: #007bff; text-decoration: none; font-size: 0.85rem; font-weight: bold; display: block; margin-bottom: 15px; }
+        .exit-link { color: #555; text-decoration: none; font-size: 0.75rem; display: block; }
+        .exit-link:hover { color: #888; }
     </style>
 </head>
 <body>
@@ -84,10 +90,12 @@
             <h3>SALA Scientific Foundation</h3>
             <p>The risk index calculates <span class="keyword">Individual Biomechanical Capacity</span>, adjusting physical load based on the <span class="keyword">Body Mass Percentage Rule</span>.</p>
             <p>The system monitors <span class="keyword">Stability and Center of Gravity</span> during cargo handling, preventing <span class="keyword">Systemic Exhaustion</span> caused by high <span class="keyword">Metabolic Cost</span>.</p>
-            <p>Final metrics weighted by the <span class="keyword">Proportionality Factor</span> between inertial mass and payload.</p>
         </div>
 
-        <a href="index.html" style="color: #444; text-decoration: none; display: block; margin-top: 25px; font-size: 0.75rem;">← Exit to Portal</a>
+        <div class="nav-links">
+            <a href="driver_manual.html" class="manual-link">📖 Need help? Open Driver's Manual</a>
+            <a href="index.html" class="exit-link">← Exit to Portal</a>
+        </div>
     </div>
 
     <script>
