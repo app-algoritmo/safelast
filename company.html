@@ -316,11 +316,20 @@
 
             <div class="config-group">
                 <label class="config-label">Critical Risk Threshold ($R_i$)</label>
-                <div style="display: flex; align-items: center; gap: 20px;">
+                <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 15px;">
                     <input type="range" min="50" max="95" value="85" id="thresholdRange" style="flex-grow: 1; max-width: 400px;">
-                    <span id="thresholdValue" style="font-weight: 800; color: var(--warning-red); font-size: 1.2rem;">85%</span>
+                    <span id="thresholdValue" style="font-weight: 800; color: #e67e22; font-size: 1.2rem;">85%</span>
                 </div>
-                <span class="config-help">Current setting: Trigger "Mechanical Assistance Required" at 85% risk saturation.</span>
+                
+                <div id="thresholdGuide" style="background: #f8f9fa; border: 1px dashed #ccc; padding: 12px; border-radius: 8px; font-size: 0.8rem; color: #555;">
+                    <div id="guideText">
+                        <strong>Current Policy:</strong> Balanced (Standard Industry Safety)
+                    </div>
+                    <ul style="margin: 8px 0 0 0; padding-left: 18px; line-height: 1.4;">
+                        <li><span style="color: #28a745; font-weight: bold;">Lowering (e.g. 75%):</span> Increases safety margins. Use during <strong>extreme winter</strong> or for elderly staff.</li>
+                        <li><span style="color: #dc3545; font-weight: bold;">Raising (e.g. 90%):</span> High performance mode. Use only for <strong>light cargo</strong> or climate-controlled docks.</li>
+                    </ul>
+                </div>
             </div>
 
             <button style="background: var(--corp-blue); color: white; border: none; padding: 12px 25px; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 20px;">
@@ -367,12 +376,26 @@
         }
     }
 
-    // Listener para o slider de threshold em Settings
-    const rangeInput = document.getElementById('thresholdRange');
-    const displayValue = document.getElementById('thresholdValue');
-    if(rangeInput) {
-        rangeInput.addEventListener('input', (e) => {
-            displayValue.innerText = e.target.value + '%';
+    // Lógica Dinâmica para o Slider de Threshold (DSS)
+    const range = document.getElementById('thresholdRange');
+    const valueDisplay = document.getElementById('thresholdValue');
+    const guideText = document.getElementById('guideText');
+
+    if(range) {
+        range.addEventListener('input', () => {
+            const val = range.value;
+            valueDisplay.innerText = val + '%';
+            
+            if(val < 75) {
+                guideText.innerHTML = "<strong>Policy: Maximum Prevention.</strong> High operational overhead, minimal injury risk.";
+                valueDisplay.style.color = "#28a745"; // Verde
+            } else if(val >= 75 && val <= 85) {
+                guideText.innerHTML = "<strong>Policy: Balanced.</strong> Standard industry safety for Norwegian logistics.";
+                valueDisplay.style.color = "#e67e22"; // Laranja
+            } else {
+                guideText.innerHTML = "<strong>Policy: High Performance.</strong> Critical risk of L5/S1 failure. Requires expert supervision.";
+                valueDisplay.style.color = "#dc3545"; // Vermelho
+            }
         });
     }
 </script>
