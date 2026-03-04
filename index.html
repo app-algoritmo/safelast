@@ -9,6 +9,8 @@
             --bg-color: #ffffff;
             --card-bg: #f0f7ff;
             --accent-blue-dark: #0056b3;
+            --scan-blue: #00f2ff;
+            --neon-green: #39ff14;
             --text-primary: #1a1a1a;
             --text-secondary: #4a4a4a;
             --border-color: #d1e3f8;
@@ -25,18 +27,60 @@
         .container {
             max-width: 800px;
             margin: 0 auto;
-            padding: 60px 20px;
+            padding: 40px 20px;
         }
 
         header {
             text-align: center;
             border-bottom: 1px solid #eaeaea;
-            padding-bottom: 40px;
-            margin-bottom: 40px;
+            padding-bottom: 30px;
+            margin-bottom: 30px;
         }
 
-        h1 { font-size: 2.8rem; margin-bottom: 5px; font-weight: 800; }
-        .subtitle { font-size: 1.25rem; color: var(--accent-blue-dark); font-weight: 500; }
+        h1 { font-size: 2.2rem; margin-bottom: 5px; font-weight: 800; color: var(--text-primary); }
+        .subtitle { font-size: 1.1rem; color: var(--accent-blue-dark); font-weight: 500; margin-top: 0; }
+
+        /* --- ANIMAÇÃO DO ESCANEAMENTO BIOMÉTRICO --- */
+        .bio-scan-container {
+            position: relative;
+            width: 150px;
+            height: 220px;
+            margin: 0 auto 40px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle, rgba(0,86,179,0.05) 0%, rgba(255,255,255,0) 70%);
+        }
+
+        /* Silhueta Humana (SVG Inline) */
+        .human-silhouette {
+            width: 120px;
+            height: 200px;
+            fill: none;
+            stroke: var(--neon-green);
+            stroke-width: 1.5;
+            filter: drop-shadow(0 0 5px rgba(57, 255, 20, 0.5));
+            opacity: 0.8;
+        }
+
+        /* O Feixe de Laser Azul */
+        .scan-bar {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--scan-blue);
+            box-shadow: 0 0 15px var(--scan-blue), 0 0 30px var(--scan-blue);
+            z-index: 2;
+            animation: scanMove 3s infinite ease-in-out;
+        }
+
+        @keyframes scanMove {
+            0% { top: 10%; opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { top: 90%; opacity: 0; }
+        }
 
         .nav-portal {
             display: grid;
@@ -54,37 +98,38 @@
             text-decoration: none;
             border-radius: 8px;
             font-weight: 600;
-            font-size: 0.9rem;
-            transition: opacity 0.2s;
+            font-size: 0.85rem;
+            transition: transform 0.2s, opacity 0.2s;
         }
 
-        .nav-button:hover { opacity: 0.9; }
+        .nav-button:hover { opacity: 0.9; transform: translateY(-2px); }
         .nav-button.driver { background-color: #1a1a1a; }
         .nav-button.secondary { background-color: #f0f0f0; color: #333 !important; border: 1px solid #ddd; }
 
-        section { margin-bottom: 60px; }
-        h2 { border-left: 4px solid var(--accent-blue-dark); padding-left: 15px; }
+        section { margin-bottom: 50px; }
+        h2 { border-left: 4px solid var(--accent-blue-dark); padding-left: 15px; font-size: 1.4rem; }
 
         .algorithm-box {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 12px;
-            padding: 30px;
+            padding: 25px;
             text-align: center;
         }
 
-        .formula { font-size: 2.2rem; color: var(--accent-blue-dark); font-weight: 800; }
+        .formula { font-size: 2rem; color: var(--accent-blue-dark); font-weight: 800; }
 
         footer {
             text-align: center;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             border-top: 1px solid #eaeaea;
-            padding-top: 40px;
+            padding-top: 30px;
             color: #888;
         }
 
         @media (max-width: 600px) {
             .nav-portal { grid-template-columns: 1fr; }
+            h1 { font-size: 1.8rem; }
         }
     </style>
 </head>
@@ -94,43 +139,50 @@
         <header>
             <h1>SALA • SAFE-LOAD ANALYTICS</h1>
             <p class="subtitle">Predictive Intelligence for Norwegian Logistics</p>
-            <p>www.safelast.no</p>
+            <p style="font-size: 0.8rem; color: #888;">www.safelast.no • Larvik, Norway</p>
         </header>
+
+        <div class="bio-scan-container">
+            <div class="scan-bar"></div>
+            <svg class="human-silhouette" viewBox="0 0 24 24">
+                <path d="M12,2C10.9,2,10,2.9,10,4s0.9,2,2,2s2-0.9,2-2S13.1,2,12,2z M19,10c0-1.1-0.9-2-2-2h-2c0,0-1,0-1,0h-4c0,0-1,0-1,0H7 C5.9,8,5,8.9,5,10v7h2v5h2v-5h2v5h2v-5h2v5h2v-5h2V10z"/>
+            </svg>
+        </div>
 
         <nav class="nav-portal">
             <a href="drive.html" class="nav-button driver">DRIVER APP</a>
             <a href="dashboard.html" class="nav-button">MANAGER DASHBOARD</a>
-            <a href="https://paulofbarros.github.io/safelast-site/company.html" class="nav-button secondary">COMPANY ACCESS</a>
+            <a href="company.html" class="nav-button secondary">COMPANY ACCESS</a>
         </nav>
 
         <section>
-            <h2>Overview</h2>
-            <p>SALA is a proprietary predictive framework designed to quantify and mitigate ergonomic risks in the Norwegian transport sector, focusing on reducing long-term sickness claims (sykemelding).</p>
+            <h2>Strategic Overview</h2>
+            <p>SALA is a proprietary predictive framework designed to quantify and mitigate ergonomic risks in the Norwegian transport sector, focusing on reducing long-term sickness claims (<em>sykemelding</em>).</p>
         </section>
 
         <section>
             <h2>The Core Algorithm</h2>
             <div class="algorithm-box">
-                <p>Ergonomic Risk Index Calculation:</p>
+                <p style="font-size: 0.8rem; font-weight: bold; color: var(--text-secondary);">BIOMECHANICAL RISK INDEX (Ri):</p>
                 <div class="formula">Ri = (Sf × Lw) + (Fi × Th)</div>
             </div>
         </section>
 
-        <section style="background: #f9f9f9; padding: 30px; border-radius: 12px; border: 1px solid #eee; margin-top: 40px;">
-            <h2 style="color: #0056b3; border-left: 4px solid #0056b3; padding-left: 15px;">The Science Behind SALA</h2>
+        <section style="background: #f9f9f9; padding: 25px; border-radius: 12px; border: 1px solid #eee;">
+            <h2 style="color: #0056b3; border-left: 4px solid #0056b3;">The Science Behind SALA</h2>
             
             <p><strong>Biomechanical Surface Factor (Sf):</strong> 
-            Operating on compressed snow or ice requires up to 80% more stabilizer muscle activation. We apply a <strong>1.8x multiplier</strong> to account for increased torque on the lumbar region (L5/S1) during unstable conditions.</p>
+            Operating on compressed snow or ice requires up to 80% more stabilizer muscle activation. SALA applies a <strong>1.8x multiplier</strong> to account for increased torque on the lumbar region (L5/S1).</p>
             
             <p><strong>Neuromuscular Fatigue (Fi):</strong> 
-            Risk scales exponentially after <strong>6h 30m</strong> of active duty. Vibration-induced fatigue leads to delayed motor response, making manual load adjustments significantly more hazardous.</p>
+            Risk scales exponentially after <strong>6h 30m</strong> of active duty. Vibration-induced fatigue leads to delayed motor response, increasing manual handling hazards.</p>
             
             <p><strong>Regulatory Compliance (Arbeidsmiljøloven § 4-4):</strong> 
-            SALA is designed to fulfill the Norwegian Working Environment Act requirements, providing data-driven evidence for the <em>Verneombud</em> (Safety Delegate) to mandate mechanical assistance.</p>
+            SALA provides data-driven evidence for the <em>Verneombud</em> (Safety Delegate) to mandate mechanical assistance and ensure worker safety.</p>
         </section>
 
         <footer>
-            <p>Author: <strong>Paulo Fernando De Barros</strong> | Larvik, Norway</p>
+            <p>Author: <strong>Paulo Fernando De Barros</strong></p>
             <p>&copy; 2026 SALA - Safe-Load Analytics. All rights reserved.</p>
         </footer>
     </div>
