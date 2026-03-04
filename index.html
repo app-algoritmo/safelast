@@ -1,210 +1,118 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nb">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SALA • Safe-Load Analytics</title>
+    <title>SALA • Biomechanical Risk Management</title>
     <style>
         :root {
-            --bg-color: #ffffff;
-            --card-bg: #f0f7ff;
-            --accent-blue-dark: #002b5c; /* Corporativo e Profissional */
-            --scan-blue: #00f2ff; /* Laser brilhante */
-            --border-color: #d1e3f8;
-            --text-primary: #1a1a1a;
-            --text-secondary: #4a4a4a;
+            --corp-blue: #002b5c;
+            --accent-blue: #0056b3;
+            --bg-dark: #0a0e14;
         }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-primary);
-            margin: 0;
-            line-height: 1.6;
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            margin: 0; 
+            background: var(--bg-dark); 
+            color: white; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            min-height: 100vh;
         }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-
-        header {
-            text-align: center;
-            border-bottom: 1px solid #eaeaea;
-            padding-bottom: 30px;
-            margin-bottom: 30px;
-        }
-
-        h1 { font-size: 2.2rem; margin-bottom: 5px; font-weight: 800; color: var(--text-primary); }
-        .subtitle { font-size: 1.1rem; color: var(--accent-blue-dark); font-weight: 500; margin-top: 0; }
-
-        /* --- CONTÊINER DO BIO-SCAN (COM A IMAGEM REAL E TAMANHO REDUZIDO) --- */
-        .bio-scan-container {
-            position: relative;
-            width: 100%;
-            max-width: 75px; /* Reduzido para 1/4 do tamanho anterior (75px) */
-            margin: 0 auto 40px auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: radial-gradient(circle, rgba(0,242,255,0.05) 0%, rgba(255,255,255,0) 70%);
-            border-radius: 12px;
-            overflow: hidden; /* Corta o laser se sair do contêiner */
-            padding: 5px; /* Padding reduzido para combinar com o novo tamanho */
-            box-sizing: border-box;
-        }
-
-        /* Imagem Anatômica Carregada (sala_body.png) */
-        .anatomy-image {
-            width: 100%;
-            height: auto;
-            display: block;
-            position: relative;
-            z-index: 1; /* Abaixo do laser */
-            opacity: 0.95;
-            filter: drop-shadow(0 0 3px rgba(0, 86, 179, 0.2)); /* Brilho mais sutil */
-        }
-
-        /* O Feixe de Laser Azul Profundo */
-        .scan-bar {
-            position: absolute;
-            left: -10%; /* Estende um pouco para fora para cobertura total */
-            width: 120%;
-            height: 2px; /* Espessura reduzida para combinar com o novo tamanho */
-            background: var(--scan-blue);
-            box-shadow: 0 0 8px var(--scan-blue), 0 0 16px var(--scan-blue), 0 0 24px var(--scan-blue); /* Brilho reduzido */
-            z-index: 2; /* Acima da imagem */
-            animation: scanMove 4s infinite ease-in-out;
-            border-radius: 50%; /* Arredonda as pontas para suavidade */
-        }
-
-        /* Efeito de Cintilação no Corpo */
-        .flicker-overlay {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,242,255,0.01);
-            z-index: 3; /* Acima de tudo */
-            animation: flickerEffect 0.2s infinite;
-            opacity: 0;
-        }
-
-        @keyframes scanMove {
-            0% { top: 5%; opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { top: 95%; opacity: 0; }
-        }
-
-        @keyframes flickerEffect {
-            0% { opacity: 0; }
-            50% { opacity: 1; }
-            100% { opacity: 0; }
-        }
-
-        /* Navegação do Portal */
-        .nav-portal {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin-bottom: 50px;
-        }
-
-        .nav-button {
-            display: block;
-            text-align: center;
-            padding: 15px;
-            background-color: var(--accent-blue-dark);
-            color: white !important;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 0.85rem;
-            transition: transform 0.2s, opacity 0.2s;
-        }
-
-        .nav-button:hover { opacity: 0.9; transform: translateY(-2px); }
-        .nav-button.driver { background-color: #1a1a1a; }
-        .nav-button.secondary { background-color: #f0f0f0; color: #333 !important; border: 1px solid #ddd; }
-
-        section { margin-bottom: 50px; }
-        h2 { border-left: 4px solid var(--accent-blue-dark); padding-left: 15px; font-size: 1.4rem; }
-
-        .algorithm-box {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 25px;
-            text-align: center;
-        }
-
-        .formula { font-size: 2rem; color: var(--accent-blue-dark); font-weight: 800; }
-
-        footer {
-            text-align: center;
+        .hero { text-align: center; padding: 20px; }
+        .logo { font-size: 3rem; font-weight: 900; letter-spacing: -1px; margin-bottom: 5px; }
+        .tagline { color: var(--accent-blue); font-weight: bold; margin-bottom: 40px; letter-spacing: 2px; }
+        
+        /* Language Selector */
+        .lang-selector { margin-bottom: 40px; display: flex; gap: 15px; }
+        .lang-btn { 
+            background: #1a1f26; 
+            border: 1px solid #333; 
+            color: white; 
+            padding: 8px 15px; 
+            border-radius: 20px; 
+            cursor: pointer; 
             font-size: 0.8rem;
-            border-top: 1px solid #eaeaea;
-            padding-top: 30px;
-            color: #888;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
         }
+        .lang-btn:hover { border-color: var(--accent-blue); }
+        .lang-btn.active { background: var(--accent-blue); border-color: var(--accent-blue); }
 
-        @media (max-width: 600px) {
-            .nav-portal { grid-template-columns: 1fr; }
-            h1 { font-size: 1.8rem; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; width: 90%; max-width: 800px; }
+        .card { 
+            background: #1a1f26; 
+            padding: 30px; 
+            border-radius: 15px; 
+            text-decoration: none; 
+            color: white; 
+            border: 1px solid #333; 
+            transition: all 0.3s ease;
         }
+        .card:hover { transform: translateY(-5px); border-color: var(--accent-blue); box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+        .card h2 { margin-top: 0; color: var(--accent-blue); }
+        .card p { color: #888; font-size: 0.9rem; }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <header>
-            <h1>SALA • SAFE-LOAD ANALYTICS</h1>
-            <p class="subtitle">Predictive Intelligence for Norwegian Logistics</p>
-            <p style="font-size: 0.8rem; color: #888;">www.safelast.no • Larvik, Norway</p>
-        </header>
-
-        <div class="bio-scan-container">
-            <div class="scan-bar"></div> <div class="flicker-overlay"></div> <img src="sala_body.png" alt="SALA Biomechanical Analysis" class="anatomy-image">
+    <div class="hero">
+        <div class="logo">SALA</div>
+        <div class="tagline">PREVENTING SICK LEAVE • NORWAY</div>
+        
+        <div class="lang-selector">
+            <button class="lang-btn active" onclick="setLang('en')">🇬🇧 English</button>
+            <button class="lang-btn" onclick="setLang('no')">🇳🇴 Norsk</button>
         </div>
-
-        <nav class="nav-portal">
-            <a href="drive.html" class="nav-button driver">DRIVER APP</a>
-            <a href="dashboard.html" class="nav-button">MANAGER DASHBOARD</a>
-            <a href="company.html" class="nav-button secondary">COMPANY ACCESS</a>
-        </nav>
-
-        <section>
-            <h2>Strategic Overview</h2>
-            <p>SALA is a proprietary predictive framework designed to quantify and mitigate ergonomic risks in the Norwegian transport sector, focusing on reducing long-term sickness claims (<em>sykemelding</em>).</p>
-        </section>
-
-        <section>
-            <h2>The Core Algorithm</h2>
-            <div class="algorithm-box">
-                <p style="font-size: 0.8rem; font-weight: bold; color: var(--text-secondary);">BIOMECHANICAL RISK INDEX (Ri):</p>
-                <div class="formula">Ri = (Sf × Lw) + (Fi × Th)</div>
-            </div>
-        </section>
-
-        <section style="background: #f9f9f9; padding: 25px; border-radius: 12px; border: 1px solid #eee;">
-            <h2 style="color: #0056b3; border-left: 4px solid #0056b3;">The Science Behind SALA</h2>
-            
-            <p><strong>Biomechanical Surface Factor (Sf):</strong> 
-            Operating on compressed snow or ice requires up to 80% more stabilizer muscle activation. SALA applies a <strong>1.8x multiplier</strong> to account for increased torque on the lumbar region (L5/S1).</p>
-            
-            <p><strong>Neuromuscular Fatigue (Fi):</strong> 
-            Risk scales exponentially after <strong>6h 30m</strong> of active duty. Vibration-induced fatigue leads to delayed motor response, increasing manual handling hazards.</p>
-            
-            <p><strong>Regulatory Compliance (Arbeidsmiljøloven § 4-4):</strong> 
-            SALA provides data-driven evidence for the <em>Verneombud</em> (Safety Delegate) to mandate mechanical assistance and ensure worker safety.</p>
-        </section>
-
-        <footer>
-            <p>Author: <strong>Paulo Fernando De Barros</strong></p>
-            <p>&copy; 2026 SALA - Safe-Load Analytics. All rights reserved.</p>
-        </footer>
     </div>
 
+    <div class="grid">
+        <a href="company.html" class="card" id="card-mgmt">
+            <h2 id="t-mgmt-h">Management Portal</h2>
+            <p id="t-mgmt-p">Fleet analytics, risk logs, and ROI monitoring for HSE managers.</p>
+        </a>
+
+        <a href="drive.html" class="card" id="card-driver">
+            <h2 id="t-driver-h">Universal Driver View</h2>
+            <p id="t-driver-p">Real-time risk feedback, weather sync, and QR package scanner.</p>
+        </a>
+    </div>
+
+    <script>
+        const content = {
+            en: {
+                tagline: "PREVENTING SICK LEAVE • NORWAY",
+                mgmtH: "Management Portal",
+                mgmtP: "Fleet analytics, risk logs, and ROI monitoring for HSE managers.",
+                driverH: "Universal Driver View",
+                driverP: "Real-time risk feedback, weather sync, and QR package scanner."
+            },
+            no: {
+                tagline: "FOREBYGGING AV SYKEFRAVÆR • NORGE",
+                mgmtH: "Ledelsesportal",
+                mgmtP: "Flåteanalyse, risikologger eog ROI-overvåking for HMS-ledere.",
+                driverH: "Universal Sjåførvisning",
+                driverP: "Sanntids risicotilbakemelding, værsynkronisering og QR-skanner."
+            }
+        };
+
+        function setLang(lang) {
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.querySelector('.tagline').innerText = content[lang].tagline;
+            document.getElementById('t-mgmt-h').innerText = content[lang].mgmtH;
+            document.getElementById('t-mgmt-p').innerText = content[lang].mgmtP;
+            document.getElementById('t-driver-h').innerText = content[lang].driverH;
+            document.getElementById('t-driver-p').innerText = content[lang].driverP;
+
+            // Guardar preferência (opcional)
+            localStorage.setItem('sala_lang', lang);
+        }
+    </script>
 </body>
 </html>
