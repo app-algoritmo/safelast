@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SALA • Technical Note 01-A</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; line-height: 1.6; color: #333; max-width: 700px; margin: 40px auto; padding: 20px; background: #fdfdfd; }
+        .doc-box { border: 1px solid #ddd; padding: 40px; background: white; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .header { border-bottom: 2px solid #002b5c; margin-bottom: 30px; padding-bottom: 10px; }
+        .id-tag { font-size: 0.7rem; color: #888; text-transform: uppercase; letter-spacing: 1px; }
+        h1 { color: #002b5c; font-size: 1.5rem; margin: 5px 0; }
+        h2 { color: #0056b3; font-size: 1.1rem; margin-top: 25px; }
+        .formula { background: #f0f4f8; padding: 15px; border-radius: 5px; font-family: 'Courier New', monospace; font-size: 0.9rem; margin: 15px 0; }
+        .footer-link { margin-top: 50px; font-size: 0.8rem; border-top: 1px solid #eee; padding-top: 15px; }
+    </style>
+</head>
+<body>
+
+<div class="doc-box">
+    <div class="header">
+        <span class="id-tag">Reference: BIOM-FATIGUE-01A</span>
+        <h1>Technical Note: Baseline Fatigue Initialization</h1>
+    </div>
+
+    <p><strong>Subject:</strong> Rationale for the 2.0-hour default initialization in the Driver View.</p>
+    
+    <h2>1. The "Cold Start" Fallacy</h2>
+    <p>In occupational biomechanics, a "zero-risk" state only exists after a period of restorative sleep. For logistics professionals, the manual handling phase (loading/unloading) never starts at 0% fatigue. The 2.0h baseline accounts for the <strong>Pre-Task Metabolic Load</strong>.</p>
+
+    <h2>2. Whole-Body Vibration (WBV)</h2>
+    <p>Driving for 1 to 2 hours to reach a delivery point in Larvik or the Nordic corridor subjects the spine to constant low-frequency vibrations. According to <em>ISO 2631-1</em>, these vibrations cause:</p>
+    <ul>
+        <li>Micro-swelling of intervertebral discs.</li>
+        <li>Reduced muscular tonus in the <em>multifidus</em> (stabilizing muscles).</li>
+    </ul>
+
+    <h2>3. The Safety Factor (Sf) Multiplier</h2>
+    <div class="formula">
+        Initial_Ri = (WBV_Exposure * 0.15) + (Metabolic_Basal_Rate)
+    </div>
+    <p>Starting the app at 2.0h ensures the <strong>Risk Index (Ri)</strong> is calculated with a conservative safety margin. This prevents the "First Lift Injury" syndrome, where a driver, feeling deceptively rested, performs a heavy lift with "cold" and vibration-fatigued tendons.</p>
+
+    <h2>4. Managerial Oversight</h2>
+    <p>Managers should interpret an initial Ri above 0% as a calibrated safety buffer. This ensures that when the driver performs high-frequency deliveries, the cumulative risk curve is accurate and not underestimated.</p>
+
+    <div class="footer-nav">
+        <a href="javascript:history.back()" style="color: #0056b3; text-decoration: none;">← Return to Previous Page</a>
+    </div>
+</div>
+
+</body>
+</html>
