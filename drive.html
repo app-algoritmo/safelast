@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SALA • Driver View</title>
-    <script src="https://unpkg.com/html5-qrcode"></script>
+    <script src="[https://unpkg.com/html5-qrcode](https://unpkg.com/html5-qrcode)"></script>
     <style>
         body { background: #0a0e14; color: #ffffff; font-family: sans-serif; margin: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 20px; box-sizing: border-box; }
         .app-container { width: 100%; max-width: 400px; text-align: center; }
@@ -18,7 +18,7 @@
         .btn-reset { background: #dc3545; color: white; border: none; padding: 10px; width: 100%; border-radius: 8px; font-size: 0.8rem; font-weight: bold; cursor: pointer; margin-top: 15px; opacity: 0.7; }
         #reader { width: 100%; border-radius: 12px; margin-top: 15px; display: none; overflow: hidden; background: #000; border: 2px solid #28a745; }
         .status-msg { margin-top: 10px; font-weight: bold; padding: 10px; border-radius: 8px; font-size: 0.8rem; letter-spacing: 1px; }
-        /* Estilo do Resumo Executivo */
+        
         .scientific-footer {
             margin-top: 30px;
             padding: 20px;
@@ -41,10 +41,7 @@
             color: #ccc;
             margin-bottom: 10px;
         }
-        .keyword {
-            color: #ffffff;
-            font-weight: bold;
-        }
+        .keyword { color: #ffffff; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -81,32 +78,23 @@
         <div id="reader"></div>
         <button class="btn-scan" id="scan-btn" onclick="startScanner()">[ ] SCAN PACKAGE</button>
         <button class="btn-reset" onclick="resetCounters()">RESTART DATA</button>
-                <button class="btn-reset" onclick="resetCounters()">RESTART DATA</button>
 
         <div class="scientific-footer">
             <h3>Fundamentação Científica SALA</h3>
-            
             <p>O índice de risco processado considera a <span class="keyword">Capacidade Biomecânica Individual</span>, ajustando o esforço conforme a <span class="keyword">Regra do Percentual da Massa Corporal</span>.</p>
-            
             <p>O sistema monitora a <span class="keyword">Estabilidade e Centro de Gravidade</span> na movimentação de cargas, prevenindo a <span class="keyword">Exaustão Sistêmica</span> causada pelo elevado <span class="keyword">Custo Metabólico</span>.</p>
-            
             <p>Cálculo final ponderado pelo <span class="keyword">Fator de Proporcionalidade</span> entre massa inercial e carga útil.</p>
         </div>
 
-        <a href="index.html" style="color: #444; text-decoration: none; display: block; margin-top: 25px; font-size: 0.75rem;">← Exit to Portal</a>
-    </div> ```
-        
         <a href="index.html" style="color: #444; text-decoration: none; display: block; margin-top: 25px; font-size: 0.75rem;">← Exit to Portal</a>
     </div>
 
     <script>
         let html5QrCode;
 
-        // Função para detecção de clima via Geolocation ou Fallback por IP
         async function fetchWeather() {
             const status = document.getElementById('status');
             const tempInput = document.getElementById('temp');
-            
             status.innerText = "DETECTING LOCATION...";
 
             const getTemp = async (lat, lon) => {
@@ -125,9 +113,8 @@
                 navigator.geolocation.getCurrentPosition(
                     (pos) => getTemp(pos.coords.latitude, pos.coords.longitude),
                     async () => {
-                        // Fallback se o GPS for negado
                         try {
-                            const ipRes = await fetch("https://ipapi.co/json/");
+                            const ipRes = await fetch("[https://ipapi.co/json/](https://ipapi.co/json/)");
                             const ipData = await ipRes.json();
                             getTemp(ipData.latitude, ipData.longitude);
                         } catch (e) {
@@ -145,14 +132,11 @@
             try {
                 readerDiv.style.display = 'block';
                 scanBtn.innerText = "CAMERA ACTIVE...";
-
                 if (!html5QrCode) html5QrCode = new Html5Qrcode("reader");
-
                 html5QrCode.start({ facingMode: "environment" }, { fps: 10, qrbox: 250 },
                     (decodedText) => {
                         let inputL = document.getElementById('packages_light');
                         inputL.value = (parseInt(inputL.value) || 0) + 1;
-                        
                         html5QrCode.stop().then(() => {
                             readerDiv.style.display = 'none';
                             scanBtn.innerText = "[ ] SCAN PACKAGE";
@@ -179,13 +163,12 @@
             const w = document.getElementById('weight').value;
             const ph = document.getElementById('packages_heavy').value;
             const pl = document.getElementById('packages_light').value;
-            
             const riskValueText = document.getElementById('risk-value');
             const circle = document.getElementById('circle');
             const statusMsg = document.getElementById('status');
 
             try {
-                const res = await fetch("https://sala-risk-engine-718760302477.europe-north1.run.app", {
+                const res = await fetch("[https://sala-risk-engine-718760302477.europe-north1.run.app](https://sala-risk-engine-718760302477.europe-north1.run.app)", {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ 
@@ -196,9 +179,7 @@
                         "light_packages": parseInt(pl)
                     })
                 });
-                
                 if (!res.ok) throw new Error("API Offline");
-                
                 const data = await res.json();
                 const risk = data.risk_index;
                 riskValueText.innerText = risk + "%";
@@ -218,7 +199,6 @@
                 statusMsg.innerText = "CLOUD API OFFLINE";
             }
         }
-
         window.onload = fetchWeather;
     </script>
 </body>
