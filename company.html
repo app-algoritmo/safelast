@@ -15,6 +15,7 @@
             --text-main: #1a1a1a;
         }
 
+        /* [Mantendo seu CSS original aqui...] */
         * { box-sizing: border-box; }
 
         body { 
@@ -106,6 +107,16 @@
         
         .card-panel { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 20px; }
         
+        /* NOVO: Estilos para o painel de Configurações */
+        .config-group { margin-bottom: 25px; }
+        .config-label { display: block; font-weight: 700; color: var(--corp-blue); margin-bottom: 10px; font-size: 0.95rem; }
+        .config-select { 
+            width: 100%; max-width: 400px; padding: 12px; 
+            border-radius: 8px; border: 1px solid #d1e3f8; 
+            background: #fcfdfe; font-size: 0.9rem;
+        }
+        .config-help { display: block; margin-top: 8px; font-size: 0.8rem; color: #666; line-height: 1.4; }
+
         /* TABLES */
         .table-container { overflow-x: auto; }
         table { width: 100%; border-collapse: collapse; min-width: 600px; }
@@ -183,9 +194,6 @@
     <div id="map" class="view-section">
         <h1 style="color: var(--corp-blue);">Live Deployment Map</h1>
         <div id="map-container"></div>
-        <p style="font-size: 0.85rem; color: #666; margin-top: 15px;">
-            Displaying active telemetry from the Norwegian Logistics Corridor (Larvik Hub).
-        </p>
     </div>
 
     <div id="logs" class="view-section">
@@ -211,13 +219,12 @@
                     Arbeidsmiljøloven § 4-4 Monitoring
                 </a>
             </h3>
-            <p>Active monitoring of <em>Verneombud</em> requirements for mechanical lifting assistance, ergonomic workplace design, and HSE standards.</p>
+            <p>Active monitoring of <em>Verneombud</em> requirements.</p>
             <div class="table-container">
                 <table>
                     <thead><tr><th>Driver Name</th><th>YSK Expiry</th><th>Compliance Status</th></tr></thead>
                     <tbody>
                         <tr><td>Driver #X-2244</td><td>20/12/2026</td><td><span class="status-badge safe">VALID</span></td></tr>
-                        <tr><td>Driver #X-2245</td><td>15/04/2026</td><td><span class="status-badge at-risk">RENEWAL REQUIRED</span></td></tr>
                     </tbody>
                 </table>
             </div>
@@ -225,40 +232,14 @@
     </div>
 
     <div id="manual" class="view-section">
-        <h1 style="color: var(--corp-blue);">Knowledge Base & Documentation</h1>
-        <p>Access operational manuals, safety protocols, and system guidelines.</p>
-        
+        <h1 style="color: var(--corp-blue);">Knowledge Base</h1>
         <div class="manual-grid">
             <div class="manual-card">
                 <h4>📘 Driver's Manual</h4>
-                <p>Full guide on operating the mobile app and responding to real-time risk alerts.</p>
+                <p>Full guide on operating the mobile app.</p>
                 <div style="margin-top:10px;">
-                    <a href="driver_manual.html" target="_blank" class="law-link" style="font-size:0.8rem;">English</a> | 
-                    <a href="driver_manual_no.html" target="_blank" class="law-link" style="font-size:0.8rem;">Norsk</a>
-                </div>
-            </div>
-            <div class="manual-card">
-                <h4>📊 Manager Dashboard Guide</h4>
-                <p>Instructions for interpreting the Risk Index (Ri) and managing fleet compliance.</p>
-                <div style="margin-top:10px;">
-                    <a href="manager_guide.html" target="_blank" class="law-link" style="font-size:0.8rem;">English</a> | 
-                    <a href="manager_guide_no.html" target="_blank" class="law-link" style="font-size:0.8rem;">Norsk</a>
-                </div>
-            </div>
-            <div class="manual-card">
-                <h4>❄️ Winter Operations Protocol</h4>
-                <p>Specific safety procedures for operations on icy or snowy surfaces within the Nordic region.</p>
-                <div style="margin-top:10px;">
-                    <a href="winter_protocol.html" target="_blank" class="law-link" style="font-size:0.8rem;">English</a> | 
-                    <a href="winter_protocol_no.html" target="_blank" class="law-link" style="font-size:0.8rem;">Norsk</a>
-                </div>
-            </div>
-            <div class="manual-card">
-                <h4>⚖️ HSE & Legal Documentation</h4>
-                <p>Technical data for Arbeidstilsynet audits and Safety Delegate (Verneombud) reviews.</p>
-                <div style="margin-top:10px;">
-                    <a href="legal_hse.html" target="_blank" class="law-link" style="font-size:0.8rem;">English</a> | 
-                    <a href="legal_hse_no.html" target="_blank" class="law-link" style="font-size:0.8rem;">Norsk</a>
+                    <a href="driver_manual.html" class="law-link" style="font-size:0.8rem;">English</a> | 
+                    <a href="driver_manual_no.html" class="law-link" style="font-size:0.8rem;">Norsk</a>
                 </div>
             </div>
         </div>
@@ -266,12 +247,42 @@
 
     <div id="settings" class="view-section">
         <h1 style="color: var(--corp-blue);">System Settings</h1>
+        
         <div class="card-panel">
-            <h3>Enterprise Configuration</h3>
-            <p>Define global alert thresholds and regional sensitivity for all active units in the network.</p>
-            <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
-            <label>Regional Alert Sensitivity:</label><br>
-            <input type="range" min="1" max="100" value="85" style="width: 100%; max-width: 300px; margin-top: 10px;">
+            <h2 style="margin-top:0; color: var(--accent-blue);">Enterprise Configuration</h2>
+            <p style="color: #666; margin-bottom: 30px;">
+                Define global alert thresholds and regional sensitivity for all active units in the network.
+            </p>
+
+            <hr style="border: 0; border-top: 1px solid #eee; margin: 30px 0;">
+
+            <div class="config-group">
+                <label class="config-label">Regional Alert Sensitivity</label>
+                <select class="config-select">
+                    <option value="std">Standard (Oslo / Southern Coast)</option>
+                    <option value="arctic">Arctic Protocol (Northern Norway / High Altitudes)</option>
+                    <option value="mountain">Mountain Pass (Icy Surface Focus)</option>
+                    <option value="coastal">Coastal (Wind & Humidity Factor)</option>
+                </select>
+                <span class="config-help">
+                    *This adjusts the Biomechanical Surface Factor ($S_f$) multiplier to account for extreme Norwegian weather conditions.
+                </span>
+            </div>
+
+            <div class="config-group">
+                <label class="config-label">Global Risk Threshold ($R_i$)</label>
+                <div style="display: flex; align-items: center; gap: 20px;">
+                    <input type="range" min="1" max="100" value="85" style="flex-grow: 1; max-width: 400px;">
+                    <span style="font-weight: 800; color: var(--warning-red);">85%</span>
+                </div>
+                <span class="config-help">
+                    Determines the point at which the Driver App triggers a "Mechanical Assistance Required" alert.
+                </span>
+            </div>
+
+            <button style="background: var(--corp-blue); color: white; border: none; padding: 12px 25px; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 20px;">
+                Save Enterprise Changes
+            </button>
         </div>
     </div>
 
