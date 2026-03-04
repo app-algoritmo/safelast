@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SALA • Driver View</title>
-    <script src="[https://unpkg.com/html5-qrcode](https://unpkg.com/html5-qrcode)"></script>
+    <script src="https://unpkg.com/html5-qrcode"></script>
     <style>
         body { background: #0a0e14; color: #ffffff; font-family: sans-serif; margin: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 20px; box-sizing: border-box; }
         .app-container { width: 100%; max-width: 400px; text-align: center; }
@@ -19,6 +19,7 @@
         #reader { width: 100%; border-radius: 12px; margin-top: 15px; display: none; overflow: hidden; background: #000; border: 2px solid #28a745; }
         .status-msg { margin-top: 10px; font-weight: bold; padding: 10px; border-radius: 8px; font-size: 0.8rem; letter-spacing: 1px; }
         
+        /* Scientific Executive Summary - English Version */
         .scientific-footer {
             margin-top: 30px;
             padding: 20px;
@@ -30,13 +31,13 @@
         }
         .scientific-footer h3 {
             color: #007bff;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             margin-top: 0;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
         .scientific-footer p {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             line-height: 1.4;
             color: #ccc;
             margin-bottom: 10px;
@@ -80,10 +81,10 @@
         <button class="btn-reset" onclick="resetCounters()">RESTART DATA</button>
 
         <div class="scientific-footer">
-            <h3>Fundamentação Científica SALA</h3>
-            <p>O índice de risco processado considera a <span class="keyword">Capacidade Biomecânica Individual</span>, ajustando o esforço conforme a <span class="keyword">Regra do Percentual da Massa Corporal</span>.</p>
-            <p>O sistema monitora a <span class="keyword">Estabilidade e Centro de Gravidade</span> na movimentação de cargas, prevenindo a <span class="keyword">Exaustão Sistêmica</span> causada pelo elevado <span class="keyword">Custo Metabólico</span>.</p>
-            <p>Cálculo final ponderado pelo <span class="keyword">Fator de Proporcionalidade</span> entre massa inercial e carga útil.</p>
+            <h3>SALA Scientific Foundation</h3>
+            <p>The risk index calculates <span class="keyword">Individual Biomechanical Capacity</span>, adjusting physical load based on the <span class="keyword">Body Mass Percentage Rule</span>.</p>
+            <p>The system monitors <span class="keyword">Stability and Center of Gravity</span> during cargo handling, preventing <span class="keyword">Systemic Exhaustion</span> caused by high <span class="keyword">Metabolic Cost</span>.</p>
+            <p>Final metrics weighted by the <span class="keyword">Proportionality Factor</span> between inertial mass and payload.</p>
         </div>
 
         <a href="index.html" style="color: #444; text-decoration: none; display: block; margin-top: 25px; font-size: 0.75rem;">← Exit to Portal</a>
@@ -114,7 +115,7 @@
                     (pos) => getTemp(pos.coords.latitude, pos.coords.longitude),
                     async () => {
                         try {
-                            const ipRes = await fetch("[https://ipapi.co/json/](https://ipapi.co/json/)");
+                            const ipRes = await fetch("https://ipapi.co/json/");
                             const ipData = await ipRes.json();
                             getTemp(ipData.latitude, ipData.longitude);
                         } catch (e) {
@@ -168,7 +169,7 @@
             const statusMsg = document.getElementById('status');
 
             try {
-                const res = await fetch("[https://sala-risk-engine-718760302477.europe-north1.run.app](https://sala-risk-engine-718760302477.europe-north1.run.app)", {
+                const res = await fetch("https://sala-risk-engine-718760302477.europe-north1.run.app", {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ 
@@ -187,16 +188,20 @@
                 if(risk >= 80) {
                     circle.style.borderColor = "#ff4444";
                     statusMsg.innerText = "HIGH RISK: TAKE A BREAK";
+                    statusMsg.style.color = "#ff4444";
                 } else if(risk >= 50) {
                     circle.style.borderColor = "#ffa500";
                     statusMsg.innerText = "CAUTION: FATIGUE";
+                    statusMsg.style.color = "#ffa500";
                 } else {
                     circle.style.borderColor = "#28a745";
                     statusMsg.innerText = "SAFE TO OPERATE";
+                    statusMsg.style.color = "#28a745";
                 }
             } catch (e) { 
                 riskValueText.innerText = "ERR"; 
                 statusMsg.innerText = "CLOUD API OFFLINE";
+                statusMsg.style.color = "white";
             }
         }
         window.onload = fetchWeather;
