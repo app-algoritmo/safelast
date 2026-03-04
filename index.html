@@ -12,6 +12,7 @@
             --text-primary: #1a1a1a;
             --border-color: #d1e3f8;
             --btn-black: #1a1a1a;
+            --scanner-green: rgba(40, 167, 69, 0.8);
         }
 
         body {
@@ -41,7 +42,7 @@
         h1 { font-size: 2.8rem; margin-bottom: 5px; font-weight: 800; }
         .subtitle { font-size: 1.25rem; color: var(--accent-blue-dark); font-weight: 500; }
 
-        /* AREA DO SCANNER - Transparente */
+        /* AREA DO SCANNER - Verde Neon */
         .scanner-container {
             position: relative;
             width: 200px; height: 300px; margin: 20px auto;
@@ -51,7 +52,8 @@
         .scanner-container img { max-width: 100%; max-height: 100%; object-fit: contain; }
         .scanner-line {
             position: absolute; top: 0; left: 0; width: 100%; height: 3px;
-            background: rgba(0, 86, 179, 0.7); box-shadow: 0 0 12px 2px rgba(0, 86, 179, 0.5);
+            background: var(--scanner-green); 
+            box-shadow: 0 0 15px 3px rgba(40, 167, 69, 0.6);
             animation: scan 3s infinite linear; z-index: 10;
         }
         @keyframes scan { 0% { top: 0%; } 50% { top: 100%; } 100% { top: 0%; } }
@@ -104,7 +106,7 @@
 
         <nav class="nav-portal">
             <a href="drive.html" class="nav-button driver" id="btn-driver">DRIVER APP</a>
-            <a href="company.html" class="nav-button" id="btn-dashboard">LIVE DASHBOARD</a>
+            <a href="dashboard.html" class="nav-button" id="btn-dashboard">LIVE DASHBOARD</a>
             <a href="https://paulofbarros.github.io/safelast-site/company.html" class="nav-button secondary" id="btn-company">COMPANY ACCESS</a>
         </nav>
 
