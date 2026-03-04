@@ -42,7 +42,6 @@
         h1 { font-size: 2.8rem; margin-bottom: 5px; font-weight: 800; }
         .subtitle { font-size: 1.25rem; color: var(--accent-blue-dark); font-weight: 500; }
 
-        /* AREA DO SCANNER - Verde Neon */
         .scanner-container {
             position: relative;
             width: 200px; height: 300px; margin: 20px auto;
@@ -141,6 +140,7 @@
             en: {
                 tagline: "Predictive Intelligence for Norwegian Logistics",
                 driver: "DRIVER APP",
+                driverUrl: "drive.html", // Link original em inglês
                 dashboard: "LIVE DASHBOARD",
                 company: "COMPANY ACCESS",
                 overviewH: "Overview",
@@ -155,6 +155,7 @@
             no: {
                 tagline: "Prediktiv Intelligens for Norsk Logistikk",
                 driver: "SJÅFØR APP",
+                driverUrl: "driver_no.html", // Link atualizado para a página em norueguês
                 dashboard: "SANNTIDSDASHBOARD",
                 company: "BEDRIFTSTILGANG",
                 overviewH: "Oversikt",
@@ -171,8 +172,9 @@
         function translateTo(lang) {
             document.querySelectorAll('.lang-nav-central span').forEach(s => s.classList.remove('active'));
             document.getElementById('btn-' + lang).classList.add('active');
+            
+            // Atualização de textos
             document.getElementById('tagline').innerText = translations[lang].tagline;
-            document.getElementById('btn-driver').innerText = translations[lang].driver;
             document.getElementById('btn-dashboard').innerText = translations[lang].dashboard;
             document.getElementById('btn-company').innerText = translations[lang].company;
             document.getElementById('h-overview').innerText = translations[lang].overviewH;
@@ -183,6 +185,11 @@
             document.getElementById('p-sf').innerHTML = translations[lang].sfP;
             document.getElementById('p-fi').innerHTML = translations[lang].fiP;
             document.getElementById('p-reg').innerHTML = translations[lang].regP;
+
+            // Atualização do Botão Driver (Texto e Link Href)
+            const driverBtn = document.getElementById('btn-driver');
+            driverBtn.innerText = translations[lang].driver;
+            driverBtn.setAttribute('href', translations[lang].driverUrl);
         }
     </script>
 </body>
