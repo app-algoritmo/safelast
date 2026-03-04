@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SALA • Vinterdriftsprotokoll (Nordic Edition)</title>
+    <style>
+        :root {
+            --nordic-blue: #001a33;
+            --ice-blue: #b3d9ff;
+            --warning-orange: #ff9f43;
+            --white: #ffffff;
+        }
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            line-height: 1.7; 
+            color: var(--ice-blue); 
+            background-color: var(--nordic-blue);
+            max-width: 850px; 
+            margin: 0 auto; 
+            padding: 40px 20px;
+        }
+        .protocol-card { 
+            background: rgba(255, 255, 255, 0.05); 
+            padding: 45px; 
+            border-radius: 15px; 
+            border: 1px solid rgba(179, 217, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        h1 { color: var(--white); font-size: 2.2rem; border-bottom: 1px solid var(--ice-blue); padding-bottom: 15px; }
+        h2 { color: var(--white); margin-top: 35px; font-size: 1.3rem; text-transform: uppercase; letter-spacing: 1px; }
+        
+        .ice-alert { 
+            background: rgba(255, 159, 67, 0.2); 
+            border-left: 5px solid var(--warning-orange); 
+            padding: 20px; 
+            margin: 25px 0; 
+            color: var(--white);
+        }
+
+        .physics-box {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            border: 1px dashed var(--ice-blue);
+        }
+
+        .action-step { margin-bottom: 20px; }
+        .action-step strong { color: var(--white); display: block; margin-bottom: 5px; }
+
+        .footer-nav { margin-top: 50px; padding-top: 20px; border-top: 1px solid rgba(179, 217, 255, 0.2); display: flex; justify-content: space-between; font-size: 0.85rem; }
+        .footer-nav a { color: var(--ice-blue); text-decoration: none; opacity: 0.7; }
+        .footer-nav a:hover { opacity: 1; text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+<div class="protocol-card">
+    <header>
+        <p style="letter-spacing: 3px; font-size: 0.8rem; color: var(--warning-orange); font-weight: bold; margin-bottom: 5px;">ARCTIC LOGISTICS COMPLIANCE</p>
+        <h1>Vinterdriftsprotokoll</h1>
+        <p>Operasjonelle retningslinjer for miljøer med minusgrader og høyrisiko isflater i den nordiske logistikk-korridoren.</p>
+    </header>
+
+    <div class="ice-alert">
+        <strong>⚠️ VINTERMODUS AKTIVERT:</strong> Når "Detection Temp" faller under 2°C, vil SALA Risk Engine automatisk legge til en 15% følsomhetsmultiplikator på alle biomekaniske beregninger.
+    </div>
+
+    <h2>1. Biomekanikk ved lasting i kaldt vær</h2>
+    <p>Kuldeeksponering forårsaker <em>vasokonstriksjon</em>, som reduserer blodstrømmen til skjelettmuskulaturen. Dette fører til økt muskelstivhet og høyere sannsynlighet for <strong>akutte fiberavrivninger</strong> ved plutselig lasthåndtering.</p>
+    
+    <div class="physics-box">
+        <strong>Friksjonsfaktoren (CoF):</strong> På tørr asfalt er friksjonskoeffisienten ~0,7. På is faller den til <0,1. Kjernemuskulaturen (transversus abdominis) må jobbe 3 ganger hardere for å stabilisere ryggraden under løft på glatte overflater.
+    </div>
+
+    <h2>2. Obligatoriske sikkerhetstiltak</h2>
+    <div class="action-step">
+        <strong>A. Bevissthet rundt mikroglipp (Micro-slip)</strong>
+        <p>Før du åpner lastedørene på en isete rampe, sjekk "Surface Stability"-varselet i SALA-appen. Hvis en glipp oppdages under inspeksjonsrunden, vil risikoindeksen stige kraftig for å forhindre manuell håndtering uten brodder.</p>
+    </div>
+
+    <div class="action-step">
+        <strong>B. Oppvarmingsfase</strong>
+        <p>Utfør aldri tunge løft (>25 kg) umiddelbart etter at du har gått ut av en oppvarmet førerhytte. En 2-minutters "aktiv oppvarming" er påkrevd for å gjenopprette muskelelastisitet. SALA logger denne overgangsperioden.</p>
+    </div>
+
+    <h2>3. Vedlikehold av utstyr (Sensorer & Wearables)</h2>
+    <ul>
+        <li>Hold smarttelefon/nettbrett montert borte fra direkte kald trekk.</li>
+        <li>Batteriets utladingshastighet øker i Larviks vinterkulde. Sørg for at enheten er koblet til kjøretøyets 12V/24V strømforsyning for å opprettholde sanntidstelemetri.</li>
+        <li>Wearable-sensorer bør bæres <em>under</em> det ytre isolasjonslaget, men over baselaget (ull/undertøy) for optimal termisk-biomekanisk avlesning.</li>
+    </ul>
+
+    <h2>4. Nødprotokoll for "Hvile & Varme"</h2>
+    <p>Hvis din <strong>Ri (Risikoindeks)</strong> når 75% i temperaturer under -5°C, blir den obligatoriske restitusjonstiden doblet. Termisk restitusjon er like viktig som muskulær restitusjon for å forebygge langsiktig leddslitasje.</p>
+
+    <div class="footer-nav">
+        <a href="company.html">← Tilbake til Ledelsesportalen</a>
+        <a href="javascript:window.close();">Lukk manual ×</a>
+    </div>
+</div>
+
+</body>
+</html>
