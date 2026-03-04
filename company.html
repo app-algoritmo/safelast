@@ -138,7 +138,22 @@
         .manual-card { background: #fff; padding: 25px; border-radius: 10px; border: 1px solid #eee; transition: 0.3s; cursor: pointer; }
         .manual-card:hover { border-color: var(--accent-blue); box-shadow: 0 5px 15px rgba(0,0,0,0.05); transform: translateY(-3px); }
         .manual-card h4 { margin: 0 0 10px 0; color: var(--corp-blue); }
-        .manual-card p { font-size: 0.85rem; color: #666; margin: 0; line-height: 1.5; }
+        .manual-card p { font-size: 0.85rem; color: #666; margin: 0 0 15px 0; line-height: 1.5; }
+
+        /* NOVO: ESTILO DOS BOTÕES DE TRADUÇÃO */
+        .manual-langs { display: flex; gap: 10px; }
+        .lang-link { 
+            font-size: 0.7rem; 
+            font-weight: bold; 
+            text-decoration: none; 
+            color: var(--accent-blue); 
+            border: 1px solid var(--accent-blue); 
+            padding: 3px 8px; 
+            border-radius: 4px; 
+            transition: 0.2s;
+        }
+        .lang-link:hover { background: var(--accent-blue); color: #fff; }
+
     </style>
 </head>
 <body>
@@ -231,21 +246,37 @@
         <p>Access operational manuals, safety protocols, and system guidelines.</p>
         
         <div class="manual-grid">
-            <div class="manual-card" onclick="window.open('driver_manual.html', '_blank')">
+            <div class="manual-card">
                 <h4>📘 Driver's Manual</h4>
                 <p>Full guide on operating the mobile app and responding to real-time risk alerts during shifts.</p>
+                <div class="manual-langs">
+                    <a href="driver_manual_en.html" target="_blank" class="lang-link">ENGLISH</a>
+                    <a href="driver_manual_no.html" target="_blank" class="lang-link">NORSK</a>
+                </div>
             </div>
-            <div class="manual-card" onclick="window.open('manager_guide.html', '_blank')">
+            <div class="manual-card">
                 <h4>📊 Manager Dashboard Guide</h4>
                 <p>Instructions for interpreting the Risk Index (Ri) and managing fleet compliance.</p>
+                <div class="manual-langs">
+                    <a href="manager_guide_en.html" target="_blank" class="lang-link">ENGLISH</a>
+                    <a href="manager_guide_no.html" target="_blank" class="lang-link">NORSK</a>
+                </div>
             </div>
-            <div class="manual-card" onclick="window.open('winter_protocol.html', '_blank')">
+            <div class="manual-card">
                 <h4>❄️ Winter Operations Protocol</h4>
                 <p>Specific safety procedures for operations on icy or snowy surfaces within the Nordic region.</p>
+                <div class="manual-langs">
+                    <a href="winter_en.html" target="_blank" class="lang-link">ENGLISH</a>
+                    <a href="winter_no.html" target="_blank" class="lang-link">NORSK</a>
+                </div>
             </div>
-            <div class="manual-card" onclick="window.open('legal_hse.html', '_blank')">
+            <div class="manual-card">
                 <h4>⚖️ HSE & Legal Documentation</h4>
                 <p>Technical data for Arbeidstilsynet audits and Safety Delegate (Verneombud) reviews.</p>
+                <div class="manual-langs">
+                    <a href="legal_en.html" target="_blank" class="lang-link">ENGLISH</a>
+                    <a href="legal_no.html" target="_blank" class="lang-link">NORSK</a>
+                </div>
             </div>
         </div>
     </div>
@@ -287,7 +318,6 @@
         const target = document.getElementById(sectionId);
         if(target) target.classList.add('active');
         
-        // Handle the active class for the nav item correctly
         if (window.event && window.event.currentTarget) {
             window.event.currentTarget.classList.add('active');
         }
