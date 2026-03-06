@@ -38,27 +38,20 @@
             border-radius: 0 8px 8px 0;
             font-weight: 500;
         }
-        .ai-status-box {
-            background: #f0f4f8;
-            border: 1px solid #d1d9e0;
+        .research-card {
+            background: #f4f7f6;
+            border: 1px solid #cfd8dc;
             padding: 15px;
             border-radius: 8px;
             font-size: 0.85rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
             margin: 20px 0;
+            border-left: 5px solid #607d8b;
         }
         .step-list { padding-left: 20px; }
         .step-list li { margin-bottom: 15px; }
         .scientific-note { font-style: italic; color: #666; font-size: 0.9rem; margin-top: 5px; }
         .footer-nav { margin-top: 60px; padding-top: 20px; border-top: 1px solid #eee; display: flex; justify-content: space-between; font-size: 0.9rem; }
         .footer-nav a { color: var(--accent-blue); text-decoration: none; font-weight: bold; }
-        
-        @media (max-width: 600px) {
-            body { padding: 10px; }
-            .container { padding: 20px; }
-        }
     </style>
 </head>
 <body>
@@ -69,48 +62,43 @@
         <h1>Driver's Health & Safety Manual</h1>
     </header>
 
-    <div class="ai-status-box">
-        <span>🤖</span>
-        <span><strong>AI & Research Mode Active:</strong> This version is synced with the SALA ML Engine and logging biomechanical data for the PhD research of Dr. Natalia Bellan.</span>
+    <div class="research-card">
+        <strong>🔬 Scientific Research Integration:</strong> 
+        This application logs anonymized biomechanical data to support ongoing PhD research in Occupational Health. Your participation helps establish new safety standards for logistics operations in Nordic climates.
     </div>
 
     <section>
-        <p>The <strong>SALA (Safe-Load Analytics)</strong> system is your personal biomechanical assistant. Our goal is simple: <strong>to ensure you return home as healthy as you started your shift.</strong> By monitoring real-time physical strain, we prevent long-term injuries and medical leave.</p>
+        <p>The <strong>SALA (Safe-Load Analytics)</strong> system is your personal biomechanical assistant. By monitoring real-time physical strain, we prevent long-term injuries and medical leave through advanced data analysis.</p>
     </section>
 
-    <div class="highlight-box">
-        <strong>Core Philosophy:</strong> We don't just track cargo; we track the <em>impact</em> of the cargo on your body through Machine Learning.
-    </div>
-
     <h2>1. The Risk Index (Ri) & ML Engine</h2>
-    <p>Your app displays a percentage calculated in real-time. Unlike static charts, the SALA AI evaluates:</p>
+    <p>The Risk Index is a dynamic calculation powered by a Machine Learning engine that evaluates:</p>
     <ul class="step-list">
-        <li><strong>Cumulative Fatigue:</strong> Long driving hours (initialized at 2.0h) reduce muscle core stability.</li>
-        <li><strong>Dynamic Thermal Sync:</strong> The system automatically fetches local weather to adjust tendon elasticity margins.</li>
-        <li><strong>BPM Rule:</strong> Your weight vs. cargo weight proportionality.</li>
+        <li><strong>Cumulative Fatigue:</strong> Based on driving hours and vibration exposure.</li>
+        <li><strong>Dynamic Thermal Sync:</strong> Automatic adjustment of safety margins based on local temperature and tendon elasticity.</li>
+        <li><strong>Mass Proportionality:</strong> The ratio between driver weight and handled payload.</li>
     </ul>
 
     <h2>2. Real-Time Alert Protocols</h2>
     <div class="warning-box">
-        ⚠️ <strong>YELLOW ALERT (50-79%):</strong> Fatigue detected. Adjust your lifting posture. Use mechanical aids for the next 30 minutes.
+        ⚠️ <strong>YELLOW ALERT (50-79%):</strong> Elevated strain detected. Improve lifting posture and prioritize the use of mechanical aids.
     </div>
     <div class="warning-box" style="background: #f8d7da; border-left-color: #dc3545;">
-        🚫 <strong>RED ALERT (80%+):</strong> Critical musculoskeletal saturation. Stop manual handling immediately. Take a 5-minute active recovery break.
+        🚫 <strong>RED ALERT (80%+):</strong> Critical musculoskeletal saturation. Cease manual handling immediately and perform a 5-minute active recovery break.
     </div>
 
     <h2>3. The Smart Scanner System</h2>
-    <p>Using the <strong>[ ] SCAN PACKAGE</strong> button updates your load profile instantly:</p>
+    <p>Every interaction with the <strong>[ ] SCAN PACKAGE</strong> button updates your risk profile:</p>
     <ul class="step-list">
-        <li><strong>Automatic Weight Logging:</strong> Each scan increments your cargo weight by a safety-standard factor (0.01t).</li>
-        <li><strong>Hybrid Input:</strong> You can manually adjust "Heavy Packages" (>25kg) for more accurate risk profiling.</li>
+        <li><strong>Automated Logging:</strong> Scans increment cargo weight by 0.01t for baseline calculations.</li>
+        <li><strong>Manual Overrides:</strong> Use the "Heavy Packages" field for units exceeding 25kg to ensure accurate lumbar protection.</li>
     </ul>
-    <p class="scientific-note">Scientific Note: Continuous logging helps the SALA Engine learn your specific fatigue threshold over time.</p>
 
-    <h2>4. Environmental & Research Factors</h2>
-    <p>When the "Detection Temp" syncs, the system adjusts for <strong>Vasoconstriction</strong> (reduced blood flow in cold weather). As part of our ongoing research, anonymized biomechanical data is logged to improve safety standards for all Nordic drivers.</p>
+    <h2>4. Environmental Factors</h2>
+    <p>In temperatures below 0°C, the system triggers <strong>Vasoconstriction Compensation</strong>. This increases the safety buffer for muscle fibers and sener, suggesting shorter intervals between manual tasks.</p>
 
-    <h2>5. Data Privacy</h2>
-    <p>SALA is a <strong>Preventative Health Tool</strong>. Your data is encrypted and used to justify the need for better ergonomic equipment and safer shift patterns.</p>
+    <h2>5. Data Privacy & Anonymization</h2>
+    <p>SALA is a preventative tool. All research data is de-identified at the source. No personal identification is stored in the research database, ensuring your privacy while contributing to global occupational safety science.</p>
 
     <div class="footer-nav">
         <a href="index.html">← Exit to Portal</a>
