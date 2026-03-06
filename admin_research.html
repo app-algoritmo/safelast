@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SALA • Research Admin</title>
+    <style>
+        body { font-family: -apple-system, sans-serif; background: #f4f7f9; color: #1a1a1a; padding: 40px; text-align: center; }
+        .admin-card { background: white; max-width: 600px; margin: 0 auto; padding: 30px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border: 1px solid #d1e3f8; }
+        h1 { color: #0056b3; font-size: 1.5rem; margin-bottom: 10px; }
+        p { color: #666; font-size: 0.9rem; margin-bottom: 30px; }
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px; }
+        .stat-box { background: #f0f7ff; padding: 15px; border-radius: 10px; border: 1px solid #d1e3f8; }
+        .stat-box span { display: block; font-size: 1.2rem; font-weight: bold; color: #0056b3; }
+        .stat-box label { font-size: 0.7rem; text-transform: uppercase; color: #888; }
+        .btn-download { background: #28a745; color: white; border: none; padding: 15px 30px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 1rem; transition: background 0.3s; }
+        .btn-download:hover { background: #218838; }
+        .footer-note { margin-top: 20px; font-size: 0.75rem; color: #999; }
+    </style>
+</head>
+<body>
+
+    <div class="admin-card">
+        <h1>Research Data Portal</h1>
+        <p>Database Export for Dr. Natalia Bellan's PhD Research</p>
+
+        <div class="stats-grid">
+            <div class="stat-box">
+                <span id="count-logs">...</span>
+                <label>Total Samples Collected</label>
+            </div>
+            <div class="stat-box">
+                <span>Larvik, NO</span>
+                <label>Primary Research Site</label>
+            </div>
+        </div>
+
+        <button class="btn-download" onclick="exportToCSV()">DOWNLOAD DATASET (CSV)</button>
+        
+        <div class="footer-note">
+            Confidentiality Notice: Data is anonymized according to GDPR for biomechanical research purposes.
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyC6m6qUyU2m6mxXJJvwfo4VmE8rXeTGSDI",
+            authDomain: "sala-21abd.firebaseapp.com",
+            projectId: "sala-21abd",
+            storageBucket: "sala-21abd.firebasestorage.app",
+            messagingSenderId: "207275162134",
+            appId: "1:207275162134:web:1efc80f0ea73ae8d5f1337"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Atualizar contador na tela
+        async function updateCount() {
+            const q = query(collection(db, "tese_research_logs"));
+            const snapshot = await getDocs(q);
+            document.getElementById('count-logs').innerText = snapshot.size;
+        }
+        updateCount();
+
+        // Função de Exportação
+        window.exportToCSV = async function() {
+            const q = query(collection(db, "tese_research_logs"), orderBy("timestamp", "desc"));
+            const querySnapshot = await getDocs(q);
+            
+            let csvContent = "data:text/csv;charset=utf-8,";
+            csvContent += "Timestamp,DrivingHours,Temperature,CargoWeight,RiskIndex,Location\n";
+
+            querySnapshot.forEach((doc) => {
+                const d = doc.data();
+                const date = d.timestamp ? d.timestamp.toDate().toISOString() : "";
+                const row = [
+                    date,
+                    d.hours,
+                    d.temp,
+                    d.cargo,
+                    d.risk,
+                    d.location
+                ].join(",");
+                csvContent += row + "\n";
+            });
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", `SALA_Research_Data_${new Date().toISOString().slice(0,10)}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        };
+    </script>
+</body>
+</html>
