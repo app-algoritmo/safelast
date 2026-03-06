@@ -5,35 +5,42 @@
     <title>Teknisk Notat: 37,5t uke • SALA</title>
     <style>
         body { font-family: 'Segoe UI', sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 40px auto; padding: 20px; background: #f4f7f6; }
-        .card { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        h1 { color: #002b5c; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        .formula { background: #eef2f7; padding: 15px; border-radius: 8px; font-family: "Courier New", monospace; font-weight: bold; text-align: center; margin: 20px 0; }
-        .footer { margin-top: 30px; font-size: 0.8rem; color: #777; border-top: 1px solid #eee; padding-top: 20px; }
+        .card { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-top: 5px solid #002b5c; }
+        h1 { color: #002b5c; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-top: 10px; }
+        .auth-badge { background: #eef2f7; color: #002b5c; padding: 5px 12px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; float: right; border: 1px solid #002b5c; text-transform: uppercase; }
+        .formula-box { background: #f8f9fa; padding: 20px; border-radius: 8px; text-align: center; margin: 20px 0; border: 1px dashed #ccc; }
+        .footer { margin-top: 30px; font-size: 0.8rem; color: #777; border-top: 1px solid #eee; padding-top: 20px; display: flex; justify-content: space-between; }
+        .confidential-tag { color: #dc3545; font-weight: bold; text-transform: uppercase; }
     </style>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
     <div class="card">
+        <span class="auth-badge">Autentisert Sesjon</span>
         <h1>Teknisk Notat: SALA-037</h1>
         <p><strong>Emne:</strong> Integrasjon av 37,5 timers arbeidsuke i risikomodeller.</p>
         
         <h3>1. Bakgrunn</h3>
-        <p>I henhold til norske tariffavtaler er standard arbeidsuke 37,5 timer. SALA-algoritmen beregner kumulativ tretthet ($F_i$) basert på denne tidsrammen for å sikre samsvar med Arbeidsmiljøloven.</p>
+        <p>I henhold til norske tariffavtaler er standard arbeidsuke 37,5 timer. SALA-algoritmen beregner kumulativ tretthet (\(F_i\)) basert på denne tidsrammen for å sikre fullt samsvar med Arbeidsmiljøloven.</p>
 
         <h3>2. Den biomekaniske algoritmen</h3>
-        <p>For å beregne risiko ved slutten av et skift, bruker vi følgende justeringsfaktor:</p>
-        <div class="formula">
-            Ri_final = Ri_base * (1 + (t / 37.5) * Δf)
+        <p>For å beregne risikoeksponering ved slutten av et skift, benytter systemet følgende justeringsfaktor for L5/S1-regionen:</p>
+        
+        <div class="formula-box">
+            $$Ri_{final} = Ri_{base} \times \left( 1 + \left( \frac{t}{37.5} \right) \times \Delta f \right)$$
         </div>
-        <p>Hvor <strong>t</strong> er antall timer arbeidet, og <strong>Δf</strong> er utmattelseskoeffisienten for L5/S1-regionen.</p>
+        <p>Hvor <strong>t</strong> er antall timer arbeidet, og <strong>\(\Delta f\)</strong> er utmattelseskoeffisienten.</p>
 
         <h3>3. Operasjonelle grenser</h3>
         <ul>
-            <li><strong>Mekanisk assistanse:</strong> Obligatorisk etter 6 timer med Ri > 75%.</li>
-            <li><strong>Restitusjon:</strong> Minimum 11 timer mellom skift (lovpålagt).</li>
+            <li><strong>Mekanisk assistanse:</strong> Obligatorisk etter 6 timer dersom \(R_i > 75\%\).</li>
+            <li><strong>Restitusjon:</strong> Minimum 11 timer mellom skift (lovpålagt minimumshvile).</li>
         </ul>
 
         <div class="footer">
-            &copy; 2026 Safe-Load Analytics • Larvik, Norge • Konfidensielt
+            <span>&copy; 2026 Safe-Load Analytics • Larvik, Norge</span>
+            <span class="confidential-tag">Kun for intern bruk / Konfidensielt</span>
         </div>
     </div>
 </body>
