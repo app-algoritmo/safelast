@@ -198,7 +198,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyC6m6qUyU2m6mxXJJvwfo4VmE8rXeTGSDI",
@@ -220,11 +220,27 @@
             const loginSection = document.getElementById('login-section');
 
             if (user) {
-                // Se logado, destrava os botões
+                // Se logado, destrava os botões e mostra o Logout
                 btnDriver.classList.add('unlocked');
                 btnDash.classList.add('unlocked');
                 btnComp.classList.add('unlocked');
-                loginSection.innerHTML = `<p style="color:green; font-weight:bold;">● System Active: ${user.email}</p>`;
+                loginSection.innerHTML = `
+                    <div style="background: #f0f7ff; padding: 15px; border-radius: 10px; border: 1px solid var(--border-color); display: inline-block; margin: 0 auto 30px auto;">
+                        <p style="color:green; font-weight:bold; margin: 0 0 10px 0;">● System Active: ${user.email}</p>
+                        <button onclick="handleLogout()" style="background: #ff4d4d; color: white; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.8rem;">LOGOUT</button>
+                    </div>`;
+            } else {
+                // Se deslogado, tranca os botões e volta o formulário original
+                btnDriver.classList.remove('unlocked');
+                btnDash.classList.remove('unlocked');
+                btnComp.classList.remove('unlocked');
+                loginSection.innerHTML = `
+                    <div class="login-box">
+                        <input type="email" id="email" placeholder="E-mail">
+                        <input type="password" id="password" placeholder="Password">
+                        <button onclick="handleLogin()">LOGIN</button>
+                        <p id="login-msg" style="font-size: 0.8rem; margin: 0;"></p>
+                    </div>`;
             }
         });
 
@@ -242,6 +258,15 @@
                     msg.style.color = "red"; 
                     msg.innerText = "Error: Invalid credentials"; 
                 });
+        }
+
+        // FUNÇÃO DE LOGOUT ADICIONADA
+        window.handleLogout = function() {
+            signOut(auth).then(() => {
+                console.log("Sessão encerrada.");
+            }).catch((error) => {
+                console.error("Erro ao sair:", error);
+            });
         }
     </script>
 
@@ -279,7 +304,7 @@
                 scienceH: "Vitenskapen bak SALA",
                 sfP: "<strong>Biomekanisk overflatefaktor (Sf):</strong> Arbeid na komprimert snø eller is krever opptil 80% mer aktivering av stabiliseringsmuskulatur. Vi bruker en <strong>1,8x multiplikator</strong> for å ta høyde for økt belastning på korsryggen (L5/S1).",
                 fiP: "<strong>Nevromuskulær tretthet (Fi):</strong> Risiko øker eksponentielt etter <strong>6t 30m</strong> aktiv tjeneste. Vibrasjonsindusert tretthet fører til forsinket motorisk respons.",
-                regP: "<strong>Samsvar med regelverk (Arbeidsmiljøloven § 4-4):</strong> SALA er utviklet for å oppfylle kravene i arbeidsmiljøloven, og gir datadrevet dokumentasjon for <em>verneombudet</em> ved behov for mekanisk assistanse."
+                regP: "<strong>Samsvar med regelverk (Arbeidsmiljøloven § 4-4):</strong> SALA é utviklet for å oppfylle kravene i arbeidsmiljøloven, og gir datadrevet dokumentasjon for <em>verneombudet</em> ved behov for mekanisk assistanse."
             }
         };
 
