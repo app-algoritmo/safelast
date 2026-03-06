@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <title>Teknisk Notat: 37,5t uke • SALA</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 40px auto; padding: 20px; background: #f4f7f6; }
+        .card { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h1 { color: #002b5c; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        .formula { background: #eef2f7; padding: 15px; border-radius: 8px; font-family: "Courier New", monospace; font-weight: bold; text-align: center; margin: 20px 0; }
+        .footer { margin-top: 30px; font-size: 0.8rem; color: #777; border-top: 1px solid #eee; padding-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Teknisk Notat: SALA-037</h1>
+        <p><strong>Emne:</strong> Integrasjon av 37,5 timers arbeidsuke i risikomodeller.</p>
+        
+        <h3>1. Bakgrunn</h3>
+        <p>I henhold til norske tariffavtaler er standard arbeidsuke 37,5 timer. SALA-algoritmen beregner kumulativ tretthet ($F_i$) basert på denne tidsrammen for å sikre samsvar med Arbeidsmiljøloven.</p>
+
+        <h3>2. Den biomekaniske algoritmen</h3>
+        <p>For å beregne risiko ved slutten av et skift, bruker vi følgende justeringsfaktor:</p>
+        <div class="formula">
+            Ri_final = Ri_base * (1 + (t / 37.5) * Δf)
+        </div>
+        <p>Hvor <strong>t</strong> er antall timer arbeidet, og <strong>Δf</strong> er utmattelseskoeffisienten for L5/S1-regionen.</p>
+
+        <h3>3. Operasjonelle grenser</h3>
+        <ul>
+            <li><strong>Mekanisk assistanse:</strong> Obligatorisk etter 6 timer med Ri > 75%.</li>
+            <li><strong>Restitusjon:</strong> Minimum 11 timer mellom skift (lovpålagt).</li>
+        </ul>
+
+        <div class="footer">
+            &copy; 2026 Safe-Load Analytics • Larvik, Norge • Konfidensielt
+        </div>
+    </div>
+</body>
+</html>
