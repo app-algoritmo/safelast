@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Technical Note: 37.5h Week • SALA</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 40px auto; padding: 20px; background: #f4f7f6; }
+        .card { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h1 { color: #002b5c; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        .formula { background: #eef2f7; padding: 15px; border-radius: 8px; font-family: "Courier New", monospace; font-weight: bold; text-align: center; margin: 20px 0; }
+        .footer { margin-top: 30px; font-size: 0.8rem; color: #777; border-top: 1px solid #eee; padding-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Technical Note: SALA-037-EN</h1>
+        <p><strong>Subject:</strong> Integration of the 37.5-hour work week into risk models.</p>
+        
+        <h3>1. Objective</h3>
+        <p>To align SALA's real-time risk index ($R_i$) with the Norwegian standard 37.5-hour work week, ensuring fatigue multipliers are legally compliant.</p>
+
+        <h3>2. Fatigue Modeling</h3>
+        <p>The system applies a linear degradation scale to the stabilizer muscles of the lower back:</p>
+        <div class="formula">
+            Fatigue_Factor (Fi) = (Hours_Worked / 37.5) * 1.25
+        </div>
+
+        <h3>3. Compliance Protocol</h3>
+        <p>If the cumulative $F_i$ exceeds 0.85 within a single week, the system triggers a "Mechanical Only" mandate for the driver to prevent long-term musculoskeletal injury.</p>
+
+        <div class="footer">
+            &copy; 2026 Safe-Load Analytics • Larvik, Norway • Confidential
+        </div>
+    </div>
+</body>
+</html>
