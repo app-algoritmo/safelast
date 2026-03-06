@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SALA • Driver View</title>
     <script src="https://unpkg.com/html5-qrcode"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
     <style>
         body { background: #0a0e14; color: #ffffff; font-family: sans-serif; margin: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 20px; box-sizing: border-box; }
         .app-container { width: 100%; max-width: 400px; text-align: center; }
@@ -94,6 +95,7 @@
             <h3>SALA Scientific Foundation</h3>
             <p>The risk index calculates <span class="keyword">Individual Biomechanical Capacity</span>, adjusting physical load based on the <span class="keyword">Body Mass Percentage Rule</span>.</p>
             <p>Weighted by the <span class="keyword">Proportionality Factor</span> between inertial mass and payload.</p>
+            <p id="ai-brain" style="font-size: 0.6rem; color: #007bff;">AI ENGINE: ACTIVE & LEARNING</p>
         </div>
 
         <div class="nav-links">
@@ -101,6 +103,35 @@
             <a href="index.html" class="exit-link">← Exit to Portal</a>
         </div>
     </div>
+
+    <script type="module">
+        // MUDANÇA INOVADORA: CONEXÃO COM BANCO DE PESQUISA (DRA. NATALIA)
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyC6m6qUyU2m6mxXJJvwfo4VmE8rXeTGSDI",
+            authDomain: "sala-21abd.firebaseapp.com",
+            projectId: "sala-21abd",
+            storageBucket: "sala-21abd.firebasestorage.app",
+            messagingSenderId: "207275162134",
+            appId: "1:207275162134:web:1efc80f0ea73ae8d5f1337"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Função global para salvar dados da tese
+        window.logTeseData = async (data) => {
+            try {
+                await addDoc(collection(db, "tese_research_logs"), {
+                    ...data,
+                    timestamp: new Date(),
+                    location: "Larvik_Sensor_Mode"
+                });
+            } catch (e) { console.error("Research Log Error", e); }
+        };
+    </script>
 
     <script>
         let html5QrCode;
@@ -153,12 +184,10 @@
                 if (!html5QrCode) html5QrCode = new Html5Qrcode("reader");
                 html5QrCode.start({ facingMode: "environment" }, { fps: 10, qrbox: 250 },
                     (decodedText) => {
-                        // Lógica Híbrida: Soma pacote e incrementa peso (0.01t por pacote leve)
                         let inputL = document.getElementById('packages_light');
                         let inputW = document.getElementById('weight');
                         
                         inputL.value = (parseInt(inputL.value) || 0) + 1;
-                        // Soma 0.01 tons (10kg) ao Cargo Weight atual
                         let currentWeight = parseFloat(inputW.value) || 0;
                         inputW.value = (currentWeight + 0.01).toFixed(3);
 
@@ -206,10 +235,21 @@
                         "light_packages": parseInt(pl)
                     })
                 });
+                
                 if (!res.ok) throw new Error("API Offline");
                 const data = await res.json();
                 const risk = data.risk_index;
                 riskValueText.innerText = risk + "%";
+
+                // MUDANÇA INOVADORA: LOG AUTOMÁTICO PARA A TESE (DRA. NATALIA)
+                if (window.logTeseData) {
+                    window.logTeseData({
+                        hours: h,
+                        temp: t,
+                        cargo: w,
+                        risk: risk
+                    });
+                }
 
                 if(risk >= 80) {
                     circle.style.borderColor = "#ff4444";
