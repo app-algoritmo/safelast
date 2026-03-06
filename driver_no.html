@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SALA • Sjåførvisning</title>
     <script src="https://unpkg.com/html5-qrcode"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
     <style>
         body { background: #0a0e14; color: #ffffff; font-family: sans-serif; margin: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 20px; box-sizing: border-box; }
         .app-container { width: 100%; max-width: 400px; text-align: center; }
@@ -94,6 +95,7 @@
             <h3>SALA Vitenskapelig fundament</h3>
             <p>Risikoindeksen beregner <span class="keyword">individuell biomekanisk kapasitet</span>, og justerer fysisk belastning basert på <span class="keyword">regelen for kroppsmasseprosent</span>.</p>
             <p>Vektet av <span class="keyword">proporsjonalitetsfaktoren</span> mellom treghetsmasse og nyttelast.</p>
+            <p id="ai-brain" style="font-size: 0.6rem; color: #007bff;">AI-MOTOR: AKTIV OG LÆRENDE</p>
         </div>
 
         <div class="nav-links">
@@ -101,6 +103,34 @@
             <a href="index.html" class="exit-link">← Gå til portalen</a>
         </div>
     </div>
+
+    <script type="module">
+        // FORSKNINGSTILKOBLING (DRA. NATALIA)
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyC6m6qUyU2m6mxXJJvwfo4VmE8rXeTGSDI",
+            authDomain: "sala-21abd.firebaseapp.com",
+            projectId: "sala-21abd",
+            storageBucket: "sala-21abd.firebasestorage.app",
+            messagingSenderId: "207275162134",
+            appId: "1:207275162134:web:1efc80f0ea73ae8d5f1337"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        window.logTeseData = async (data) => {
+            try {
+                await addDoc(collection(db, "tese_research_logs"), {
+                    ...data,
+                    timestamp: new Date(),
+                    location: "Larvik_Sensor_Mode_NO"
+                });
+            } catch (e) { console.error("Research Log Error", e); }
+        };
+    </script>
 
     <script>
         let html5QrCode;
@@ -153,12 +183,10 @@
                 if (!html5QrCode) html5QrCode = new Html5Qrcode("reader");
                 html5QrCode.start({ facingMode: "environment" }, { fps: 10, qrbox: 250 },
                     (decodedText) => {
-                        // Hybrid logikk: Legger til pakke og øker vekten automatisk (0.01 tonn per pakke)
                         let inputL = document.getElementById('packages_light');
                         let inputW = document.getElementById('weight');
                         
                         inputL.value = (parseInt(inputL.value) || 0) + 1;
-                        
                         let currentWeight = parseFloat(inputW.value) || 0;
                         inputW.value = (currentWeight + 0.01).toFixed(3);
 
@@ -206,10 +234,22 @@
                         "light_packages": parseInt(pl)
                     })
                 });
+                
                 if (!res.ok) throw new Error("API Offline");
                 const data = await res.json();
                 const risk = data.risk_index;
                 riskValueText.innerText = risk + "%";
+
+                // LOGGING FOR TESE (DRA. NATALIA)
+                if (window.logTeseData) {
+                    window.logTeseData({
+                        hours: h,
+                        temp: t,
+                        cargo: w,
+                        risk: risk,
+                        language: "no"
+                    });
+                }
 
                 if(risk >= 80) {
                     circle.style.borderColor = "#ff4444";
