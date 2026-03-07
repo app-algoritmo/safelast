@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SALA • Executive Project Summary</title>
+    <title>SALA • National Executive Summary</title>
     <style>
         :root {
             --corp-blue: #002b5c;
             --accent-blue: #0056b3;
             --bg-gray: #f4f7f6;
             --text-main: #1a1a1a;
+            --gov-blue: #003768;
         }
         body {
             font-family: 'Segoe UI', sans-serif;
@@ -25,13 +26,21 @@
             padding: 40px;
             border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-left: 10px solid var(--gov-blue);
         }
         .header {
             border-bottom: 4px solid var(--corp-blue);
             margin-bottom: 30px;
             padding-bottom: 20px;
         }
-        h1 { color: var(--corp-blue); margin: 0; font-size: 2rem; }
+        .data-source {
+            font-size: 0.75rem;
+            color: var(--accent-blue);
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        h1 { color: var(--corp-blue); margin: 5px 0; font-size: 2rem; }
         h2 { color: var(--accent-blue); margin-top: 30px; border-bottom: 1px solid #eee; }
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
         .card {
@@ -39,6 +48,14 @@
             padding: 20px;
             border-radius: 8px;
             border-left: 4px solid var(--corp-blue);
+        }
+        .infobox {
+            background: #f0f4f8;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 20px 0;
+            font-size: 0.95rem;
+            border: 1px solid #d1d9e0;
         }
         .tag {
             display: inline-block;
@@ -58,74 +75,72 @@
 
 <div class="container">
     <div class="header">
-        <span class="tag">CONFIDENTIAL • V1.0</span>
+        <span class="tag">NATIONAL PROTOCOL • V2.0</span><br>
+        <span class="data-source">Integrated with Statens vegvesen (National Road Data)</span>
         <h1>SALA: Safe-Load Analytics</h1>
-        <p><strong>Executive Consolidation Summary (Norwegian Logistics Corridor)</strong></p>
+        <p><strong>National Strategic Consolidation Summary</strong></p>
+    </div>
+
+    <div class="infobox">
+        <strong>Technical Status:</strong> The SALA engine is technically dependent on real-time data streaming from <em>Statens vegvesen</em> to accurately calibrate the Surface Factor ($S_f$) and topographical spinal load across Norway's diverse road network.
     </div>
 
     <section>
-        <h2>1. Project Vision</h2>
-        <p>SALA is an integrated <strong>Biomechanical Governance</strong> and advanced telemetry solution, specifically developed for the logistics sector in Larvik, Norway. The central goal is to mitigate spinal injuries (L5/S1) through real-time monitoring and algorithmic intervention.</p>
+        <h2>1. National Project Vision</h2>
+        <p>SALA is the nationwide standard for <strong>Biomechanical Governance</strong>. It leverages Norway's public road infrastructure data to protect transport workers from spinal injuries (L5/S1) across all domestic corridors, from the E18 in the south to the Arctic routes in the north.</p>
     </section>
 
     <div class="grid">
         <div class="card">
-            <h3>Biomechanical Engineering</h3>
+            <h3>Biomechanic Infrastructure</h3>
             <ul>
-                <li><strong>Ri (Risk Index):</strong> Core algorithm processing load, posture, and fatigue data.</li>
-                <li><strong>L5/S1:</strong> Monitoring of compressive torque on lumbar discs.</li>
-                <li><strong>Δf:</strong> Cumulative fatigue coefficient based on the 37.5h work week.</li>
+                <li><strong>Topographical Adjustment:</strong> Risk Index ($R_i$) is dynamically scaled based on road inclination data.</li>
+                <li><strong>Public Data Integration:</strong> Direct ingestion of road friction and weather data from National Road Banks.</li>
+                <li><strong>Δf Scaling:</strong> Fatigue monitoring adjusted for extreme Nordic environments.</li>
             </ul>
         </div>
         <div class="card">
-            <h3>Regulatory Sovereignty</h3>
+            <h3>National Compliance</h3>
             <ul>
-                <li><strong>AML § 4-4:</strong> Total automation of compliance with the Norwegian Working Environment Act.</li>
-                <li><strong>Arbeidstilsynet:</strong> Reports ready for government health and safety audits.</li>
-                <li><strong>Verneombud:</strong> Dedicated interface for local safety delegates.</li>
+                <li><strong>AML § 4-4:</strong> Standardized automation of the Working Environment Act for all Norwegian logistics hubs.</li>
+                <li><strong>Arbeidstilsynet:</strong> Real-time auditing capabilities for the Labour Inspection Authority.</li>
+                <li><strong>National Safety Delegates:</strong> Cross-regional access for <em>Verneombud</em>.</li>
             </ul>
         </div>
     </div>
 
     <section>
-        <h2>2. Digital Ecosystem Structure</h2>
-        <p>The project is consolidated into the following technical modules:</p>
+        <h2>2. National Operating Modules</h2>
         <ul>
-            <li><strong>Management Dashboard:</strong> Strategic fleet overview, real-time heatmaps, and YSK compliance tracking.</li>
-            <li><strong>Master Glossary (Multilingual):</strong> Unified technical documentation in EN/NO for drivers and engineers.</li>
-            <li><strong>Arctic Protocol:</strong> Dynamic safety adjustments for glare ice (CoF < 0.1) and extreme temperatures.</li>
-            <li><strong>Mechanical Mandate:</strong> Automatic interruption protocol for manual handling when Ri > 85%.</li>
+            <li><strong>Central Risk Dashboard:</strong> Fleet overview categorized by regions (South, West, Central, North).</li>
+            <li><strong>Mountain Pass Protocol:</strong> Specific biomechanical triggers for high-inclination routes (e.g., RV7, E134).</li>
+            <li><strong>Arctic Operating Mode:</strong> Maximum sensitivity for vibration (WBV) and friction in polar latitudes.</li>
+            <li><strong>Mechanical Mandate:</strong> Uniform enforcement of mechanical aid requirements across the entire road network.</li>
         </ul>
     </section>
 
     <section>
-        <h2>3. Regional Context (Larvik Hub)</h2>
-        <p>Deployment is centered on the Larvik Hub and the E18 corridor, integrating surface friction (Sf) data and specific Nordic conditions to calibrate alerts sent to drivers' mobile devices.</p>
-    </section>
-
-    <section>
-        <h2>4. Documentation Status</h2>
+        <h2>3. Documentation Status (V2.0)</h2>
         <div class="grid">
             <div>
                 <strong>Active Interfaces:</strong>
                 <ul>
-                    <li><code>company_no.html</code> (Management Portal)</li>
+                    <li><code>company_no.html</code> (National Portal)</li>
                     <li><code>index.html</code> (Global Portal)</li>
                 </ul>
             </div>
             <div>
                 <strong>Technical Docs:</strong>
                 <ul>
-                    <li><code>glossary_no.html</code> (Norwegian Glossary)</li>
-                    <li><code>glossary.html</code> (English Glossary)</li>
-                    <li><code>summary.html</code> (This File)</li>
+                    <li><code>summary_no.html</code> (Norwegian V2)</li>
+                    <li><code>glossary.html</code> (National Terms)</li>
                 </ul>
             </div>
         </div>
     </section>
 
     <div class="footer">
-        SALA Safe-Load Analytics • © 2026<br>
+        SALA Safe-Load Analytics • National Infrastructure Dependent • © 2026<br>
         System compliant with ISO 2631-1 and AML Norway.
     </div>
 </div>
