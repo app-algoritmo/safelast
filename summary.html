@@ -68,7 +68,43 @@
         }
         ul { padding-left: 20px; }
         li { margin-bottom: 8px; }
-        .footer { margin-top: 50px; font-size: 0.8rem; color: #888; text-align: center; }
+
+        /* FOOTER NAVIGATION */
+        .nav-footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .back-link {
+            text-decoration: none;
+            color: var(--corp-blue);
+            font-weight: bold;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .back-link:hover { text-decoration: underline; }
+        
+        .lang-switch {
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-decoration: none;
+            color: var(--accent-blue);
+            border: 1px solid var(--accent-blue);
+            padding: 5px 12px;
+            border-radius: 4px;
+            transition: 0.2s;
+        }
+        .lang-switch:hover {
+            background: var(--accent-blue);
+            color: #white;
+        }
+
+        .copyright { margin-top: 40px; font-size: 0.8rem; color: #888; text-align: center; }
     </style>
 </head>
 <body>
@@ -119,27 +155,12 @@
         </ul>
     </section>
 
-    <section>
-        <h2>3. Documentation Status (V2.0)</h2>
-        <div class="grid">
-            <div>
-                <strong>Active Interfaces:</strong>
-                <ul>
-                    <li><code>company_no.html</code> (National Portal)</li>
-                    <li><code>index.html</code> (Global Portal)</li>
-                </ul>
-            </div>
-            <div>
-                <strong>Technical Docs:</strong>
-                <ul>
-                    <li><code>summary_no.html</code> (Norwegian V2)</li>
-                    <li><code>glossary.html</code> (National Terms)</li>
-                </ul>
-            </div>
-        </div>
-    </section>
+    <div class="nav-footer">
+        <a href="company.html" class="back-link">← RETURN TO COMPANY MANAGEMENT</a>
+        <a href="summary_no.html" class="lang-switch">LES PÅ NORSK</a>
+    </div>
 
-    <div class="footer">
+    <div class="copyright">
         SALA Safe-Load Analytics • © 2026<br>
         System compliant with ISO 2631-1 and AML Norway.
     </div>
