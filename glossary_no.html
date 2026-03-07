@@ -3,65 +3,166 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SALA • Teknisk og Juridisk Ordliste (v1.0)</title>
+    <title>SALA • Hovedordliste (v1.0)</title>
     <style>
-        body { background: #ffffff; color: #1a1a1a; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 20px; line-height: 1.6; }
-        .container { max-width: 850px; margin: 20px auto; background: #ffffff; padding: 50px; border-radius: 8px; border: 1px solid #e1e4e8; }
+        :root {
+            --corp-blue: #002b5c;
+            --accent-blue: #0056b3;
+            --bg-gray: #f4f7f6;
+            --text-main: #1a1a1a;
+            --border-gray: #e0e0e0;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-main);
+            background-color: var(--bg-gray);
+            margin: 0;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            background: white;
+            padding: 50px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        .header {
+            border-bottom: 3px solid var(--corp-blue);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        h1 { color: var(--corp-blue); margin: 0; font-size: 1.8rem; text-transform: uppercase; letter-spacing: 1px; }
+        h2 { color: var(--accent-blue); border-bottom: 1px solid var(--border-gray); padding-bottom: 10px; margin-top: 40px; font-size: 1.3rem; }
+        .meta-info { font-size: 0.85rem; color: #666; margin-top: 10px; }
         
-        h1 { color: #000; font-size: 1.8rem; font-weight: 800; border-bottom: 2px solid #0056b3; padding-bottom: 10px; margin-bottom: 30px; }
-        h2 { color: #002b5c; font-size: 1.2rem; margin-top: 40px; border-left: 4px solid #0056b3; padding-left: 15px; background: #f8f9fa; padding-top: 5px; padding-bottom: 5px; }
+        .glossary-item { margin-bottom: 20px; padding-left: 15px; border-left: 3px solid #eee; }
+        .term { font-weight: 800; color: var(--corp-blue); display: block; font-size: 1.1rem; }
+        .definition { display: block; margin-top: 5px; text-align: justify; }
         
-        .glossary-item { margin-bottom: 20px; padding-left: 10px; }
-        .term { font-weight: 800; color: #0056b3; display: inline-block; width: 60px; }
-        .definition { display: block; margin-left: 60px; margin-top: -24px; text-align: justify; }
-        
-        .footer { margin-top: 50px; padding-top: 20px; border-top: 1px solid #eee; font-size: 0.85rem; display: flex; justify-content: space-between; }
-        .back-link { color: #0056b3; text-decoration: none; font-weight: 600; }
+        .formula { 
+            background: #f8f9fa; 
+            padding: 10px; 
+            border-radius: 6px; 
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            display: inline-block;
+        }
+
+        .btn-back {
+            display: inline-block;
+            margin-bottom: 20px;
+            text-decoration: none;
+            color: var(--accent-blue);
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>1.0 Teknisk og Juridisk Ordliste</h1>
-        <p>Dette dokumentet definerer standardisert terminologi som brukes i SALA Risk Engine og samsvarsrapporter.</p>
 
-        <h2>1.0 BIOMEKANISKE METRIKKER</h2>
-        <div class="glossary-item">
-            <span class="term">1.1</span>
-            <span class="definition"><strong>Ri (Risikoindeks):</strong> En dynamisk verdi (0-100%) som kvantifiserer sannsynligheten for muskel- og skjelettskade basert på sanntidstelemetri.</span>
-        </div>
-        <div class="glossary-item">
-            <span class="term">1.2</span>
-            <span class="definition"><strong>L5/S1 Kompresjon:</strong> Den mekaniske kraften som utøves på mellomvirvelskiven mellom 5. lendevirvel og korsbeinet under løft.</span>
-        </div>
-        <div class="glossary-item">
-            <span class="term">1.3</span>
-            <span class="definition"><strong>Δf (Utmattelseskoeffisient):</strong> Den matematiske raten for muskelnedbrytning i forhold til skiftvarighet og tidligere arbeidsbelastning.</span>
-        </div>
-
-        <h2>2.0 OPERASJONELLE STANDARDER</h2>
-        <div class="glossary-item">
-            <span class="term">2.1</span>
-            <span class="definition"><strong>CoF (Friksjonskoeffisient):</strong> Måling av overflatestabilitet. Kritisk terskel for vinterdrift er &lt; 0,1.</span>
-        </div>
-        <div class="glossary-item">
-            <span class="term">2.2</span>
-            <span class="definition"><strong>WBV (Helkroppsvibrasjon):</strong> Eksponering for mekanisk vibrasjon under kjøring, målt i henhold til ISO 2631-1-standarder.</span>
-        </div>
-
-        <h2>3.0 JURIDISK SAMSVAR</h2>
-        <div class="glossary-item">
-            <span class="term">3.1</span>
-            <span class="definition"><strong>AML (Arbeidsmiljøloven):</strong> Den norske loven som fastsetter juridiske grenser for anstrengelse, hvile og sikkerhetsprotokoller.</span>
-        </div>
-        <div class="glossary-item">
-            <span class="term">3.2</span>
-            <span class="definition"><strong>Mekanisk Mandat:</strong> Et obligatorisk operasjonelt skifte til kun mekanisk håndtering når $Ri$ overstiger 75%.</span>
-        </div>
-
-        <div class="footer">
-            <a href="company_no.html" class="back-link">← Tilbake til Portalen</a>
-            <span>v1.0 • Konfidensielt</span>
+<div class="container">
+    <a href="company_no.html" class="btn-back">← Tilbake til Dashboard</a>
+    
+    <div class="header">
+        <h1>SALA • HOVEDORDLISTE (v1.0)</h1>
+        <div class="meta-info">
+            <strong>Prosjekt:</strong> Safe-Load Analytics (Norsk logistikkorridor)<br>
+            <strong>Klassifisering:</strong> Intern / Regulatorisk samsvar (HMS)
         </div>
     </div>
+
+    <h2>1.0 BIOMEKANISKE KJERNEPARAMETERE (SALA ENGINE)</h2>
+    
+    <div class="glossary-item">
+        <span class="term">1.1 Ri (Risikoindeks)</span>
+        <span class="definition">Systemets sentrale algoritme. En dynamisk verdi (0-100 %) som behandler telemetri i sanntid for å forutsi sannsynligheten for akutte eller kumulative muskel- og skjelettskader.</span>
+    </div>
+
+    <div class="glossary-item">
+        <span class="term">1.2 L5/S1 Kompresjonskraft</span>
+        <span class="definition">Spesifikt mål på dreiemoment og trykk som utøves på mellomvirvelskiven mellom femte korsryggvirvel og korsbeinet. SALA-systemet utløser automatiske varsler når denne kraften overstiger biomekaniske sikkerhetsgrenser ved løft.</span>
+    </div>
+
+    <div class="glossary-item">
+        <span class="term">1.3 Δf (Utmattelseskoeffisient)</span>
+        <span class="definition">Matematisk faktor som nedjusterer førerens motstandskraft basert på vaktlengde og belastningshistorikk de siste 24 timene.</span>
+    </div>
+
+    <div class="glossary-item">
+        <span class="term">1.4 WBV (Helseskader ved vibrasjon)</span>
+        <span class="definition">Eksponering for mekaniske vibrasjoner gjennom kjøretøyets sete, overvåket i henhold til ISO 2631-1 standarder for å forebygge nevrologisk tretthet og kroniske ryggsmerter (lumbago).</span>
+    </div>
+
+    <h2>2.0 OPERASJONELLE OG MILJØMESSIGE PARAMETERE</h2>
+
+    <div class="glossary-item">
+        <span class="term">2.1 Sf (Underlagsfaktor / Surface Factor)</span>
+        <span class="definition">Risikomultiplikator som brukes på $R_i$ når sensoren registrerer ustabilitet i underlaget (f.eks. ujevnt terreng eller glatte flater).</span>
+    </div>
+
+    <div class="glossary-item">
+        <span class="term">2.2 CoF (Friksjonskoeffisient)</span>
+        <span class="definition">Mål på overflatens stabilitet. Under "Vinterprotokoll" vil overflater med $CoF < 0.1$ (blankis) automatisk aktivere maksimal sikkerhetsmodus.</span>
+    </div>
+
+    <div class="glossary-item">
+        <span class="term">2.3 Arktisk Protokoll (Arctic Protocol)</span>
+        <span class="definition">Systemkonfigurasjon for nordlige regioner, der utmattelsesgrenser justeres for temperaturer under -15°C.</span>
+    </div>
+
+    <div class="glossary-item">
+        <span class="term">2.4 Larvik Hub Sektor</span>
+        <span class="definition">Prosjektets pilotområde, med fokus på risikostyring mellom havneterminalen og logistikkorridoren langs E18.</span>
+    </div>
+
+    <h2>3.0 JURIDISK OG REGULATORISK RAMMEVERK (NORGE)</h2>
+
+    <div class="glossary-item">
+        <span class="term">3.1 AML (Arbeidsmiljøloven)</span>
+        <span class="definition">SALA-systemet er utviklet for å automatisere overholdelse av § 4-4, som krever at arbeidet tilpasses den enkelte arbeidstakers fysiske kapasitet.</span>
+    </div>
+
+    <div class="glossary-item">
+        <span class="term">3.2 Verneombud (Safety Delegate)</span>
+        <span class="definition">Valgt representant for de ansatte med lovfestet myndighet til å gjennomgå SALA-risikologger og stanse usikkert arbeid ved behov.</span>
+    </div>
+
+    <div class="glossary-item">
+        <span class="term">3.3 YSK (Yrkessjåførkompetanse)</span>
+        <span class="definition">Obligatorisk yrkeskompetanse for yrkessjåfører. SALA overvåker gyldigheten av dette sertifikatet integrert med førerens risikodata.</span>
+    </div>
+
+    <div class="glossary-item">
+        <span class="term">3.4 37,5t Normaluke</span>
+        <span class="definition">Norsk lovfestet grense for arbeidstid, brukt som grunnlag for beregning av homeostatisk muskelrestitusjon.</span>
+    </div>
+
+    <div class="glossary-item">
+        <span class="term">3.5 Arbeidstilsynet</span>
+        <span class="definition">Den norske tilsynsmyndigheten. SALA genererer automatiserte rapporter i henhold til tilsynets standarder ved revisjon eller hendelser.</span>
+    </div>
+
+    <h2>4.0 SYSTEMPROTOKOLLER</h2>
+
+    <div class="glossary-item">
+        <span class="term">4.1 Mekanisk Mandat (Mechanical Mandate)</span>
+        <span class="definition">Sikkerhetsprotokoll som forbyr manuell håndtering og krever bruk av mekaniske hjelpemidler når $R_i$ overstiger terskelen (vanligvis 85 %).</span>
+    </div>
+
+    <div class="glossary-item">
+        <span class="term">4.2 Restitusjonsintervall (Recovery Interval)</span>
+        <span class="definition">Lovpålagt hvileperiode på 11 timer mellom skift, validert av systemet for å nullstille akkumulert utmattelseskoeffisient ($\Delta f$).</span>
+    </div>
+
+    <div class="glossary-item">
+        <span class="term">4.3 Sanntidstelemetri</span>
+        <span class="definition">Den konstante strømmen av data fra bærbar sensorteknologi og kjøretøy til ledelsens kontrollpanel (Dashboard).</span>
+    </div>
+
+</div>
+
 </body>
 </html>
