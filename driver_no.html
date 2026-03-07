@@ -71,6 +71,9 @@
 
             <label>SJÅFØRVEKT (KG)</label>
             <input type="number" id="driver_weight" value="80">
+
+            <label>SJÅFØR ALDER (ÅR)</label>
+            <input type="number" id="age" value="35">
             
             <label id="label-temp">DETEKTERT TEMP (°C)</label>
             <input type="number" id="temp" value="0">
@@ -91,8 +94,8 @@
         <button class="btn-scan" id="scan-btn" onclick="startScanner()">[ ] SKANN PAKKE</button>
         <button class="btn-reset" onclick="resetCounters()">RESTART DATA</button>
 
-        <div class="footer">
-            <h3>SALA Safe-Load Analytics</b> | Biomekanisk Risikoforskning</h3>
+        <div class="scientific-footer">
+            <h3>SALA Safe-Load Analytics | Biomekanisk Risikoforskning</h3>
             <p>Risikoindeksen beregner <span class="keyword">individuell biomekanisk kapasitet</span>, og justerer fysisk belastning basert på <span class="keyword">regelen for kroppsmasseprosent</span>.</p>
             <p>Vektet av <span class="keyword">proporsjonalitetsfaktoren</span> mellom treghetsmasse og nyttelast.</p>
             <p id="ai-brain" style="font-size: 0.6rem; color: #007bff;">AI-MOTOR: AKTIV OG LÆRENDE</p>
@@ -105,7 +108,6 @@
     </div>
 
     <script type="module">
-        // FORSKNINGSTILKOBLING (DRA. NATALIA)
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
@@ -200,7 +202,7 @@
                     alert("Skannerfeil: " + err);
                     readerDiv.style.display = 'none';
                 });
-            } catch (err) { alert("Ingen tilgang til kamera."); }
+            } catch (err) { alert("Ingen tilgang para kamera."); }
         }
 
         function resetCounters() {
@@ -213,6 +215,7 @@
         async function updateDriverView() {
             const h = document.getElementById('hours').value;
             const dw = document.getElementById('driver_weight').value;
+            const age = document.getElementById('age').value; // NOVA VARIÁVEL DE IDADE
             const t = document.getElementById('temp').value;
             const w = document.getElementById('weight').value;
             const ph = document.getElementById('packages_heavy').value;
@@ -228,6 +231,7 @@
                     body: JSON.stringify({ 
                         "driving_hours": parseFloat(h), 
                         "driver_weight": parseFloat(dw),
+                        "age": parseInt(age), // ENVIANDO IDADE PARA O MOTOR
                         "temp": parseFloat(t),
                         "total_weight": parseFloat(w),
                         "heavy_packages": parseInt(ph),
@@ -240,12 +244,12 @@
                 const risk = data.risk_index;
                 riskValueText.innerText = risk + "%";
 
-                // LOGGING FOR TESE (DRA. NATALIA)
                 if (window.logTeseData) {
                     window.logTeseData({
                         hours: h,
                         temp: t,
                         cargo: w,
+                        age: age,
                         risk: risk,
                         language: "no"
                     });
