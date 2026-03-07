@@ -68,7 +68,43 @@
         }
         ul { padding-left: 20px; }
         li { margin-bottom: 8px; }
-        .footer { margin-top: 50px; font-size: 0.8rem; color: #888; text-align: center; }
+
+        /* FOOTER NAVIGATION */
+        .nav-footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .back-link {
+            text-decoration: none;
+            color: var(--corp-blue);
+            font-weight: bold;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .back-link:hover { text-decoration: underline; }
+        
+        .lang-switch {
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-decoration: none;
+            color: var(--accent-blue);
+            border: 1px solid var(--accent-blue);
+            padding: 5px 12px;
+            border-radius: 4px;
+            transition: 0.2s;
+        }
+        .lang-switch:hover {
+            background: var(--accent-blue);
+            color: white;
+        }
+
+        .copyright { margin-top: 40px; font-size: 0.8rem; color: #888; text-align: center; }
     </style>
 </head>
 <body>
@@ -125,21 +161,26 @@
             <div>
                 <strong>Aktive grensesnitt:</strong>
                 <ul>
-                    <li><code>company_no.html</code> (Nasjonal portal)</li>
+                    <li><code>company.html</code> (Nasjonal portal)</li>
                     <li><code>index.html</code> (Global portal)</li>
                 </ul>
             </div>
             <div>
                 <strong>Teknisk dokumentasjon:</strong>
                 <ul>
-                    <li><code>summary_no.html</code> (Dette dokumentet)</li>
+                    <li><code>summary.html</code> (Engelsk versjon)</li>
                     <li><code>glossary_no.html</code> (Norske termer)</li>
                 </ul>
             </div>
         </div>
     </section>
 
-    <div class="footer">
+    <div class="nav-footer">
+        <a href="company.html" class="back-link">← TILBAKE TIL LEDELSESPANEL</a>
+        <a href="summary.html" class="lang-switch">READ IN ENGLISH</a>
+    </div>
+
+    <div class="copyright">
         SALA Safe-Load Analytics • © 2026<br>
         Systemet samsvarer med ISO 2631-1 og den norske Arbeidsmiljøloven.
     </div>
