@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SALA • Ledelsessammendrag av prosjektet</title>
+    <title>SALA • Nasjonalt Ledelsessammendrag</title>
     <style>
         :root {
             --corp-blue: #002b5c;
             --accent-blue: #0056b3;
             --bg-gray: #f4f7f6;
             --text-main: #1a1a1a;
+            --norway-red: #ba0c2f; /* Farge fra det norske flagget for nasjonal profil */
         }
         body {
             font-family: 'Segoe UI', sans-serif;
@@ -19,114 +20,114 @@
             padding: 40px 20px;
         }
         .container {
-            max-width: 900px;
+            max-width: 950px;
             margin: 0 auto;
             background: white;
-            padding: 40px;
+            padding: 50px;
             border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-top: 8px solid var(--norway-red);
         }
         .header {
             border-bottom: 4px solid var(--corp-blue);
             margin-bottom: 30px;
             padding-bottom: 20px;
         }
-        h1 { color: var(--corp-blue); margin: 0; font-size: 2rem; }
-        h2 { color: var(--accent-blue); margin-top: 30px; border-bottom: 1px solid #eee; }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
+        h1 { color: var(--corp-blue); margin: 0; font-size: 2.2rem; text-transform: uppercase; }
+        h2 { color: var(--accent-blue); margin-top: 35px; border-bottom: 1px solid #eee; padding-bottom: 5px; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-top: 20px; }
         .card {
-            background: #f9f9f9;
+            background: #fdfdfd;
             padding: 20px;
             border-radius: 8px;
-            border-left: 4px solid var(--corp-blue);
+            border-left: 4px solid var(--accent-blue);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
         }
-        .tag {
+        .tag-national {
             display: inline-block;
-            background: var(--corp-blue);
+            background: var(--norway-red);
             color: white;
-            padding: 4px 10px;
+            padding: 5px 15px;
             border-radius: 4px;
-            font-size: 0.8rem;
-            margin-bottom: 10px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-bottom: 15px;
         }
-        ul { padding-left: 20px; }
-        li { margin-bottom: 8px; }
-        .footer { margin-top: 50px; font-size: 0.8rem; color: #888; text-align: center; }
+        .footer { margin-top: 50px; font-size: 0.85rem; color: #666; text-align: center; border-top: 1px solid #eee; padding-top: 20px; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div class="header">
-        <span class="tag">KONFIDENSIELT • V1.0</span>
+        <span class="tag-national">NASJONAL INFRASTRUKTUR • V2.0</span>
         <h1>SALA: Safe-Load Analytics</h1>
-        <p><strong>Overordnet sammendrag for logistikkorridoren i Larvik</strong></p>
+        <p><strong>Strategisk sammendrag for det nasjonale logistikknettverket i Norge</strong></p>
     </div>
 
     <section>
-        <h2>1. Prosjektvisjon</h2>
-        <p>SALA er en integrert løsning for <strong>biomekanisk styring</strong> og avansert telemetri, utviklet spesifikt for logistikksektoren i Larvik-området. Hovedmålet er å redusere risiko for ryggskader (L5/S1) gjennom sanntidsovervåking og algoritmiske tiltak.</p>
+        <h2>1. Nasjonal Visjon og Omfang</h2>
+        <p>SALA har ekspandert fra pilotfasen i Larvik til å bli et landsdekkende system for <strong>biomekanisk risikostyring</strong>. Systemet overvåker nå hele det norske veinettet, med spesielt fokus på kritiske logistikkorridorer (E6, E18, E39) og krevende fjelloverganger.</p>
     </section>
 
     <div class="grid">
         <div class="card">
-            <h3>Biomekanisk utvikling</h3>
+            <h3>Landsdekkende Telemetri</h3>
             <ul>
-                <li><strong>Ri (Risikoindeks):</strong> Kjernalgoritme som beregner belastning, holdning og tretthet.</li>
-                <li><strong>L5/S1:</strong> Overvåking av kompresjonskraft på korsryggskivene.</li>
-                <li><strong>Δf:</strong> Kumulativ utmattelseskoeffisient basert på 37,5 timers arbeidsuke.</li>
+                <li><strong>Topografisk integrasjon:</strong> Algoritmer som justerer $R_i$ basert på stigningsgrad i norske fjellheimen.</li>
+                <li><strong>Meteorologisk sanntid:</strong> Kobling mot nasjonale værstasjoner for dynamisk beregning av friksjon ($S_f$).</li>
+                <li><strong>Arktisk Standard:</strong> Spesialtilpassede terskelverdier for operasjoner i Nord-Norge og under ekstreme vinterforhold.</li>
             </ul>
         </div>
         <div class="card">
-            <h3>Regulatorisk samsvar</h3>
+            <h3>Nasjonal Regulatorisk Hub</h3>
             <ul>
-                <li><strong>AML § 4-4:</strong> Full automatisering av kravene i Arbeidsmiljøloven om fysisk tilrettelegging.</li>
-                <li><strong>Arbeidstilsynet:</strong> Rapporter klargjort for HMS-revisjoner og tilsyn.</li>
-                <li><strong>Verneombud:</strong> Dedikert grensesnitt for lokale sikkerhetsrepresentanter.</li>
+                <li><strong>AML § 4-4 (Nasjonalt):</strong> Standardisert digital overvåking for HMS-samsvar på tvers av alle fylker.</li>
+                <li><strong>Statens vegvesen-samhandling:</strong> Integrasjon av veidata for proaktiv risikovarsling før kritiske veipartier.</li>
+                <li><strong>Sentralisert revisjon:</strong> Automatiserte rapporter klargjort for nasjonale tilsyn fra Arbeidstilsynet.</li>
             </ul>
         </div>
     </div>
 
     <section>
-        <h2>2. Struktur i det digitale økosystemet</h2>
-        <p>Prosjektet er konsolidert i følgende tekniske moduler:</p>
+        <h2>2. Operasjonelle Moduler (Nasjonalt Nivå)</h2>
         <ul>
-            <li><strong>Dashboard for ledelse:</strong> Strategisk flåteoversikt, sanntidskart og YSK-status.</li>
-            <li><strong>Hovedordliste (Flerspråklig):</strong> Teknisk dokumentasjon på norsk og engelsk for sjåfører og ingeniører.</li>
-            <li><strong>Arktisk protokoll:</strong> Dynamiske sikkerhetsjusteringer for operasjoner på is og ved ekstreme kuldegrader.</li>
-            <li><strong>Mekanisk mandat:</strong> Automatisk stopp av manuelt arbeid når Ri overstiger 85 %.</li>
+            <li><strong>Nasjonalt Kontrollpanel:</strong> Oversikt over flåterisiko fordelt på regioner (Sør, Vest, Midt, Nord).</li>
+            <li><strong>Fjellovergang-protokoll:</strong> Aktiverer sensorer for høyt dreiemoment og torsjonsbelastning i korsryggen ved kjøring i bratt terreng.</li>
+            <li><strong>Kyst- og Vinterlogistikk:</strong> Justerer stabilitetsfaktorer basert på vindstyrke og varierende veidekke (is/salt/slaps).</li>
+            <li><strong>Sjåfør-app (Nasjonalt):</strong> Flerspråklig støtte med lokasjonsbaserte sikkerhetsvarsler for hele Norge.</li>
         </ul>
     </section>
 
     <section>
-        <h2>3. Regional kontekst (Larvik Hub)</h2>
-        <p>Implementeringen er sentrert rundt Larvik Havn og E18-korridoren. Systemet integrerer data om friksjonsforhold (Sf) og nordiske vinterforhold for å kalibrere varsler sendt til sjåførenes enheter.</p>
+        <h2>3. Strategisk Implementering</h2>
+        <p>Ved å bruke data fra hele det nasjonale veinettet, kan SALA nå forutsi tretthet og biomekanisk svikt før sjåføren beveger seg inn i risikofylte områder. Dette sikrer at <strong>Mekanisk Mandat</strong> håndheves uniformt fra Oslo til Kirkenes.</p>
     </section>
 
     <section>
-        <h2>4. Dokumentasjonsstatus</h2>
+        <h2>4. Arkivoversikt (V2.0)</h2>
         <div class="grid">
             <div>
-                <strong>Aktive grensesnitt:</strong>
+                <strong>Systemgrensesnitt:</strong>
                 <ul>
-                    <li><code>company_no.html</code> (Ledelsesportal)</li>
-                    <li><code>index.html</code> (Global portal)</li>
+                    <li><code>company_no.html</code> (Nasjonal Ledelsesportal)</li>
+                    <li><code>index.html</code> (Global Inngangsport)</li>
                 </ul>
             </div>
             <div>
-                <strong>Tekniske dokumenter:</strong>
+                <strong>Dokumentasjon:</strong>
                 <ul>
-                    <li><code>summary_no.html</code> (Dette dokumentet)</li>
-                    <li><code>glossary_no.html</code> (Hovedordliste)</li>
-                    <li><code>glossary.html</code> (Master Glossary)</li>
+                    <li><code>summary_no.html</code> (Dette dokumentet - Nasjonal V2)</li>
+                    <li><code>glossary_no.html</code> (Nasjonal Hovedordliste)</li>
+                    <li><code>technical_expansion.html</code> (Topografiske spesifikasjoner)</li>
                 </ul>
             </div>
         </div>
     </section>
 
     <div class="footer">
-        SALA Safe-Load Analytics • © 2026<br>
-        Systemet er i samsvar med ISO 2631-1 og den norske Arbeidsmiljøloven.
+        SALA Safe-Load Analytics • Nasjonal Logistikkstøtte • © 2026<br>
+        Sertifisert i henhold til norske HMS-standarder og internasjonale biomekaniske krav.
     </div>
 </div>
 
