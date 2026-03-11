@@ -28,7 +28,7 @@
             min-height: 100vh;
         }
 
-        /* Bandeiras Centralizadas - Estilo Exato do seu código */
+        /* Bandeiras Centralizadas */
         .lang-switch {
             margin-bottom: 30px;
             display: flex;
@@ -53,10 +53,11 @@
             opacity: 0.5;
         }
 
-        /* Header - Estilo Exato */
+        /* Header */
         header {
             text-align: center;
             margin-bottom: 40px;
+            padding: 0 20px;
         }
         h1 {
             font-weight: 700;
@@ -73,6 +74,15 @@
             margin-top: 8px;
             letter-spacing: 1px;
         }
+        .description {
+            color: var(--text-light);
+            font-size: 0.85rem;
+            margin-top: 12px;
+            max-width: 400px;
+            line-height: 1.4;
+            margin-left: auto;
+            margin-right: auto;
+        }
 
         /* Botões em Formato Vertical */
         .nav-form {
@@ -81,6 +91,7 @@
             display: flex;
             flex-direction: column;
             gap: 12px;
+            padding: 0 20px;
         }
         
         .btn-access {
@@ -97,7 +108,7 @@
             transition: 0.3s;
         }
 
-        /* Cores específicas dos botões */
+        /* Cores específicas */
         .btn-driver { background-color: #1a1a1a; }
         .btn-dashboard { background-color: var(--primary); }
         .btn-company { background-color: #f8f9fa; color: #333 !important; border: 1px solid var(--border); }
@@ -122,6 +133,9 @@
     <header>
         <h1 id="main-title">SALA • Safe-Load Analytics</h1>
         <div class="subtitle" id="main-subtitle">Predictive Intelligence for Logistics & Transport</div>
+        <div class="description" id="main-description">
+            Designed to quantify and mitigate ergonomic risks in the transport sector, focusing on reducing long-term sickness claims.
+        </div>
     </header>
 
     <div class="nav-form">
@@ -137,13 +151,15 @@
     <script>
         const translations = {
             en: {
-                subtitle: "Predictive Intelligence for Norwegian Logistics & Transport",
+                subtitle: "Predictive Intelligence for Logistics & Transport",
+                description: "Designed to quantify and mitigate ergonomic risks in the transport sector, focusing on reducing long-term sickness claims.",
                 driver: "DRIVER APP",
                 dashboard: "LIVE DASHBOARD",
                 company: "COMPANY ACCESS"
             },
             no: {
-                subtitle: "Prediktiv intelligens for norsk logistikk og transport",
+                subtitle: "Prediktiv intelligens for logistikk og transport",
+                description: "Designet for å kvantifisere og redusere ergonomisk risiko i transportsektoren, med fokus på å redusere sykefravær.",
                 driver: "SJÅFØR APP",
                 dashboard: "SANNTIDSDASHBOARD",
                 company: "BEDRIFTSTILGANG"
@@ -156,12 +172,12 @@
 
             const data = translations[lang];
             document.getElementById('main-subtitle').innerText = data.subtitle;
+            document.getElementById('main-description').innerText = data.description;
             document.getElementById('btn-driver').innerText = data.driver;
             document.getElementById('btn-dashboard').innerText = data.dashboard;
             document.getElementById('btn-company').innerText = data.company;
         }
 
-        // Inicializa com Inglês ou detecção automática
         const userLang = (navigator.languages && navigator.languages[0]) || navigator.language; 
         if (userLang.startsWith('no') || userLang.startsWith('nb')) {
             setLanguage('no');
