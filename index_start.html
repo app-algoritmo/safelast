@@ -28,26 +28,35 @@
             min-height: 100vh;
         }
 
-        /* 1. Language Flags */
+        /* 1. Flags Centralized */
         .lang-switch {
-            position: absolute;
-            top: 30px;
-            right: 40px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
         }
         .lang-switch img {
-            width: 24px;
+            width: 32px;
             cursor: pointer;
-            margin-left: 15px;
-            filter: grayscale(100%);
             transition: 0.3s;
-            opacity: 0.6;
+            border: 2px solid transparent;
+            border-radius: 4px;
+            padding: 2px;
         }
-        .lang-switch img:hover { filter: grayscale(0%); opacity: 1; }
+        .lang-switch img.active {
+            border-color: var(--accent);
+            filter: none;
+            opacity: 1;
+        }
+        .lang-switch img:not(.active) {
+            filter: grayscale(100%);
+            opacity: 0.5;
+        }
 
         /* Header */
         header {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
         }
         h1 {
             font-weight: 700;
@@ -65,7 +74,7 @@
             letter-spacing: 1px;
         }
 
-        /* Features Card - IA Focused */
+        /* Features Card */
         .features-card {
             background: #fff;
             padding: 40px;
@@ -112,9 +121,7 @@
             border-radius: 8px;
             font-size: 0.95rem;
             outline: none;
-            transition: 0.2s;
         }
-        input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(0,86,179,0.1); }
         
         .btn-access {
             background-color: var(--primary);
@@ -129,7 +136,7 @@
             text-align: center;
             transition: 0.3s;
         }
-        .btn-access:hover { background-color: var(--accent); transform: translateY(-1px); }
+        .btn-access:hover { background-color: var(--accent); }
 
         footer {
             margin-top: 60px;
@@ -142,55 +149,85 @@
 <body>
 
     <div class="lang-switch">
-        <img src="https://flagcdn.com/w40/no.png" alt="Norsk">
-        <img src="https://flagcdn.com/w40/gb.png" alt="English">
+        <img src="https://flagcdn.com/w40/no.png" alt="Norsk" onclick="setLanguage('no')" id="flag-no">
+        <img src="https://flagcdn.com/w40/gb.png" alt="English" onclick="setLanguage('en')" id="flag-en" class="active">
     </div>
 
     <header>
-        <h1>SALA • Safe-Load Analytics</h1>
-        <div class="subtitle">Predictive Intelligence for Norwegian Logistics & Transport</div>
+        <h1 id="main-title">SALA • Safe-Load Analytics</h1>
+        <div class="subtitle" id="main-subtitle">Predictive Intelligence for Norwegian Logistics & Transport</div>
     </header>
 
-    <div class="features-card">
-        <div class="feature-item">
-            <span class="check-icon">✓</span>
-            <div class="feature-text">
-                <strong>AI-Driven Injury Prediction</strong>
-                <span>Advanced Artificial Intelligence models that forecast driver injury risks before they occur.</span>
-            </div>
+    <div class="features-card" id="features-list">
         </div>
-        <div class="feature-item">
-            <span class="check-icon">✓</span>
-            <div class="feature-text">
-                <strong>Predictive Health Analytics</strong>
-                <span>Smart data processing to identify physiological stress patterns in real-time.</span>
-            </div>
-        </div>
-        <div class="feature-item">
-            <span class="check-icon">✓</span>
-            <div class="feature-text">
-                <strong>Autonomous Safety Monitoring</strong>
-                <span>AI algorithms constantly scanning for high-risk biomechanical operational conditions.</span>
-            </div>
-        </div>
-        <div class="feature-item">
-            <span class="check-icon">✓</span>
-            <div class="feature-text">
-                <strong>Legal Compliance Automation</strong>
-                <span>Seamless alignment with AML § 4-4 standards through automated AI reporting.</span>
-            </div>
-        </div>
-    </div>
 
     <div class="login-form">
-        <input type="text" placeholder="Enterprise ID or Email">
-        <input type="password" placeholder="Password">
-        <a href="index_start.html" class="btn-access">ACCESS PLATFORM</a>
+        <input type="text" id="input-id" placeholder="Enterprise ID or Email">
+        <input type="password" id="input-pass" placeholder="Password">
+        <a href="index_start.html" class="btn-access" id="btn-login">ACCESS PLATFORM</a>
     </div>
 
     <footer>
         © 2026 SALA - Safe-Load Analytics | Biomechanical Risk Research | All rights reserved.
     </footer>
 
+    <script>
+        const translations = {
+            en: {
+                subtitle: "Predictive Intelligence for Norwegian Logistics & Transport",
+                features: [
+                    { t: "AI-Driven Injury Prediction", d: "Advanced Artificial Intelligence models that forecast driver injury risks before they occur." },
+                    { t: "Predictive Health Analytics", d: "Smart data processing to identify physiological stress patterns in real-time." },
+                    { t: "Autonomous Safety Monitoring", d: "AI algorithms constantly scanning for high-risk biomechanical operational conditions." },
+                    { t: "Legal Compliance Automation", d: "Seamless alignment with AML § 4-4 standards through automated AI reporting." }
+                ],
+                placeholderId: "Enterprise ID or Email",
+                placeholderPass: "Password",
+                btnLogin: "ACCESS PLATFORM"
+            },
+            no: {
+                subtitle: "Prediktiv intelligens for norsk logistikk og transport",
+                features: [
+                    { t: "AI-drevet skadeprediksjon", d: "Avanserte AI-modeller som forutsier risiko for førerskader før de oppstår." },
+                    { t: "Prediktiv helseanalyse", d: "Smart databehandling for å identifisere fysiologiske stressmønstre i sanntid." },
+                    { t: "Autonom sikkerhetsovervåking", d: "AI-algoritmer som kontinuerlig skanner etter biomekaniske risikoforhold." },
+                    { t: "Automatisering av lovlydighet", d: "Sømløs justering mot AML § 4-4 standarder gjennom automatisert AI-rapportering." }
+                ],
+                placeholderId: "Bedrifts-ID eller e-post",
+                placeholderPass: "Passord",
+                btnLogin: "FÅ TILGANG TIL PLATTFORM"
+            }
+        };
+
+        function setLanguage(lang) {
+            // Update Flags
+            document.getElementById('flag-en').classList.toggle('active', lang === 'en');
+            document.getElementById('flag-no').classList.toggle('active', lang === 'no');
+
+            // Update Texts
+            const data = translations[lang];
+            document.getElementById('main-subtitle').innerText = data.subtitle;
+            document.getElementById('input-id').placeholder = data.placeholderId;
+            document.getElementById('input-pass').placeholder = data.placeholderPass;
+            document.getElementById('btn-login').innerText = data.btnLogin;
+
+            // Update Features list
+            const listContainer = document.getElementById('features-list');
+            listContainer.innerHTML = '';
+            data.features.forEach(f => {
+                listContainer.innerHTML += `
+                    <div class="feature-item">
+                        <span class="check-icon">✓</span>
+                        <div class="feature-text">
+                            <strong>${f.t}</strong>
+                            <span>${f.d}</span>
+                        </div>
+                    </div>`;
+            });
+        }
+
+        // Initialize with English
+        setLanguage('en');
+    </script>
 </body>
 </html>
