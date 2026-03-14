@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <title>SALA • Safe-Load Analytics</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
@@ -16,24 +16,35 @@
             --border: #e1e4e8;
         }
 
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            overflow-x: hidden;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--bg-light);
             color: var(--text-dark);
-            margin: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
+            padding: 24px 16px;
         }
 
-        /* Bandeiras Centralizadas */
+        /* Flags */
         .lang-switch {
-            margin-bottom: 30px;
+            margin-bottom: 24px;
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 16px;
         }
         .lang-switch img {
             width: 32px;
@@ -45,7 +56,6 @@
         }
         .lang-switch img.active {
             border-color: var(--accent);
-            filter: none;
             opacity: 1;
         }
         .lang-switch img:not(.active) {
@@ -56,12 +66,12 @@
         /* Header */
         header {
             text-align: center;
-            margin-bottom: 30px;
-            padding: 0 20px;
+            margin-bottom: 24px;
+            width: 100%;
         }
         h1 {
             font-weight: 700;
-            font-size: 1.5rem;
+            font-size: clamp(1.1rem, 4vw, 1.5rem);
             letter-spacing: -0.5px;
             margin: 0;
             color: var(--primary);
@@ -69,69 +79,71 @@
         }
         .subtitle {
             color: var(--accent);
-            font-size: 0.85rem;
+            font-size: clamp(0.75rem, 3vw, 0.85rem);
             font-weight: 600;
             margin-top: 8px;
             letter-spacing: 1px;
         }
 
-        /* Estilo do Card de Informação */
+        /* Info Card */
         .info-card {
             background: #fff;
-            padding: 25px;
+            padding: 22px 20px;
             border-radius: 12px;
             border: 1px solid var(--border);
             box-shadow: 0 4px 20px rgba(0,0,0,0.04);
             width: 100%;
-            max-width: 400px;
-            margin-bottom: 30px;
+            max-width: 450px;
+            margin-bottom: 20px;
             text-align: center;
-            box-sizing: border-box;
         }
         .description {
             color: var(--text-light);
-            font-size: 0.9rem;
-            line-height: 1.5;
+            font-size: clamp(0.82rem, 3vw, 0.9rem);
+            line-height: 1.6;
             margin: 0;
         }
 
-        /* Botões em Formato Vertical */
+        /* Nav Buttons */
         .nav-form {
             width: 100%;
             max-width: 450px;
             display: flex;
             flex-direction: column;
             gap: 12px;
-            padding: 0 20px;
-            box-sizing: border-box;
         }
-        
+
         .btn-access {
-            background-color: var(--primary);
-            color: white;
-            border: none;
+            display: block;
+            width: 100%;
             padding: 16px;
             border-radius: 8px;
+            border: none;
+            font-family: 'Inter', sans-serif;
             font-weight: 600;
+            font-size: clamp(0.88rem, 3.5vw, 1rem);
             cursor: pointer;
-            font-size: 1rem;
             text-decoration: none;
             text-align: center;
-            transition: 0.3s;
+            transition: opacity 0.2s, transform 0.2s;
+            -webkit-appearance: none;
+        }
+        .btn-access:hover, .btn-access:active {
+            opacity: 0.88;
+            transform: translateY(-1px);
         }
 
-        /* Cores específicas */
-        .btn-driver { background-color: #1a1a1a; }
-        .btn-dashboard { background-color: var(--primary); }
-        .btn-company { background-color: #f8f9fa; color: #333 !important; border: 1px solid var(--border); }
-
-        .btn-access:hover { opacity: 0.9; transform: translateY(-1px); }
+        .btn-driver   { background-color: #1a1a1a; color: #fff; }
+        .btn-dashboard{ background-color: var(--primary); color: #fff; }
+        .btn-company  { background-color: #f8f9fa; color: #333; border: 1px solid var(--border); }
 
         footer {
-            margin-top: 60px;
-            font-size: 0.75rem;
+            margin-top: 40px;
+            font-size: clamp(0.68rem, 2.5vw, 0.75rem);
             color: var(--text-light);
             text-align: center;
+            width: 100%;
+            padding: 0 8px;
         }
     </style>
 </head>
@@ -193,7 +205,7 @@
             document.getElementById('btn-company').innerText = data.company;
         }
 
-        const userLang = (navigator.languages && navigator.languages[0]) || navigator.language; 
+        const userLang = (navigator.languages && navigator.languages[0]) || navigator.language;
         if (userLang.startsWith('no') || userLang.startsWith('nb')) {
             setLanguage('no');
         } else {
